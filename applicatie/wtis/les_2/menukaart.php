@@ -1,7 +1,8 @@
 <?php
     $menu = [
         'eten' => ['Shoarma' => '6,95', 'Appels' => '10.95', 'Tabouleh' => '8.95', 'Hamburger' => '5,50'], 
-        'drinken' => ['Cola' => '2.00', 'Ayran' => '2.30', 'Fernandeds' => '2.50', 'Bier' => '5.50']
+        'drinken' => ['Cola' => '2.00', 'Ayran' => '2.30', 'Fernandeds' => '2.50', 'Bier' => '5.50'],
+        'taart' => ['Monchou' => '5.00', 'Appeltaart' => '3.40', 'Chocoladetaart' => '6.00']
     ];
 
 $menukaart = '';
@@ -14,6 +15,7 @@ foreach($menu as $categorie=>$item){
             $menukaart .= '<tr>';
                 $menukaart .= '<td>' .$product. '</td>';
                 $menukaart .= '<td>' .$prijs. '</td>';
+
             $menukaart .= '<tr>';
         }
     $menukaart .= '</table>';
@@ -25,7 +27,6 @@ foreach($menu as $categorie=>$item){
 //             echo $product . ' kost ' . $prijs . "<br />";
 //         }
 //     }
-    
 // }
 
 ?>

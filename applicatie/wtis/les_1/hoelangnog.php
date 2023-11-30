@@ -19,7 +19,7 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>PHP voorbeeld</title>
+    <title>Opdracht 1 Hoelang nog</title>
 </head>
 <body>
     <form method="GET" action="hoelangnog.php">

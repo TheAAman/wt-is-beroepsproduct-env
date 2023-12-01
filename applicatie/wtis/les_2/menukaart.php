@@ -7,9 +7,9 @@
 
 $menukaart = '';
 
-// $_GET['soorten'];
+$soort = $_GET['soort']
 
-if (isset($_GET['drankjes'])){
+if (isset($soort['drinken'])){
   foreach($menu as $categorie => $item){
     if ($categorie == 'drinken') {
       $menukaart .= '<h2>' .$categorie. '</h2>';
@@ -23,7 +23,7 @@ if (isset($_GET['drankjes'])){
     $menukaart .= '</table>';
     }
   }  
-} else if (isset($_GET['toetjes'])){
+} else if (isset($soort['toetjes'])){
   foreach($menu as $categorie => $item){
     if ($categorie == 'toetjes'){
       $menukaart .= '<h2>' .$categorie. '</h2>';

@@ -7,18 +7,50 @@
 
 $menukaart = '';
 
-foreach($menu as $categorie=>$item){
-    $menukaart .= '<h2>' .$categorie. '</h2>';
+// $_GET['soorten'];
 
+if (isset($_GET['drankjes'])){
+  foreach($menu as $categorie => $item){
+    if ($categorie == 'drinken') {
+      $menukaart .= '<h2>' .$categorie. '</h2>';
+      $menukaart .= '<table border = "1">';
+        foreach($item as $product=>$prijs){
+            $menukaart .= '<tr>';
+                $menukaart .= '<td>' .$product. '</td>';
+                $menukaart .= '<td>' .$prijs. '</td>';
+            $menukaart .= '</tr>';
+        }
+    $menukaart .= '</table>';
+    }
+  }  
+} else if (isset($_GET['toetjes'])){
+  foreach($menu as $categorie => $item){
+    if ($categorie == 'toetjes'){
+      $menukaart .= '<h2>' .$categorie. '</h2>';
+    $menukaart .= '<table border = "1">';
+        foreach($item as $product =>$prijs){
+            $menukaart .= '<tr>';
+                $menukaart .= '<td>' .$product. '</td>';
+                $menukaart .= '<td>' .$prijs. '</td>';
+            $menukaart .= '</tr>';
+        }
+    $menukaart .= '</table>';
+    }
+  }  
+} else {
+  foreach($menu as $categorie => $item){
+    $menukaart .= '<h2>' .$categorie. '</h2>';
     $menukaart .= '<table border = "1">';
         foreach($item as $product=>$prijs){
             $menukaart .= '<tr>';
                 $menukaart .= '<td>' .$product. '</td>';
                 $menukaart .= '<td>' .$prijs. '</td>';
-            $menukaart .= '<tr>';
+            $menukaart .= '</tr>';
         }
     $menukaart .= '</table>';
 }
+}
+
 
 // foreach ($menu as $categorie=>$item){
 //     echo $categorie . '<br />'
@@ -35,9 +67,14 @@ foreach($menu as $categorie=>$item){
   <head>
     <meta charset="UTF-8" />
     <title>Restaurantmenu</title>
-
   </head>
+
+  <header>
+    <h1>Menukaart</h1>
+  </header>
+
   <body>
+    <form action="soort" method="get"></form>
     <?= $menukaart ?>
   </body>
 </html>

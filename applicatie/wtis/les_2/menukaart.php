@@ -9,34 +9,22 @@ $menukaart = '';
 
 $soort = $_GET['soort'];
 
-if ($soort=='drinken' || $soort=='toetjes' != 'drinken' && $soort != 'toetjes'){
-  foreach($menu as $categorie => $item){
-    if ($categorie == $soort) {
-      $menukaart .= '<h2>' .$categorie. '</h2>';
-      $menukaart .= '<table border = "1">';
-        foreach($item as $product=>$prijs){
-            $menukaart .= '<tr>';
-                $menukaart .= '<td>' .$product. '</td>';
-                $menukaart .= '<td>' .$prijs. '</td>';
-            $menukaart .= '</tr>';
-        }
-    $menukaart .= '</table>';
-//     }
-//   }   
-// } else {
-//   foreach($menu as $categorie => $item){
-//     $menukaart .= '<h2>' .$categorie. '</h2>';
-//     $menukaart .= '<table border = "1">';
-//         foreach($item as $product=>$prijs){
-//             $menukaart .= '<tr>';
-//                 $menukaart .= '<td>' .$product. '</td>';
-//                 $menukaart .= '<td>' .$prijs. '</td>';
-//             $menukaart .= '</tr>';
-//         }
-//     $menukaart .= '</table>';
-  }
+foreach($menu as $categorie => $item){
+  if ($soort=='drinken' || $soort=='toetjes' || $soort== 'eten') {
+      if ($categorie != $soort) {
+            continue;
+      }
+    }
+  $menukaart .= '<h2>' .$categorie. '</h2>';
+  $menukaart .= '<table border = "1">';
+    foreach($item as $product=>$prijs){
+        $menukaart .= '<tr>';
+        $menukaart .= '<td>' .$product. '</td>';
+        $menukaart .= '<td>' .$prijs. '</td>';
+        $menukaart .= '</tr>';
+    }
+  $menukaart .= '</table>';
 }
-
 
 // foreach ($menu as $categorie=>$item){
 //     echo $categorie . '<br />'

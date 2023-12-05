@@ -9,10 +9,11 @@ $db = maakVerbinding();
 $sql = 'SELECT
             c.naam as componistnaam,
             c.geboortedatum as datum,
+            m.naam as muziekschool,
             plaatsnaam
         FROM 
             Componist AS C
-        JOIN 
+        LEFT JOIN 
             Muziekschool AS M 
         ON 
             C.schoolId = M.schoolId';
@@ -22,11 +23,11 @@ $data -> execute();
 
 $muziekschooltabel .= '<table border = "1">';
 
-// while ($rij = $data->fetch(PDO::FETCH_ASSOC)) {
 foreach ($data as $rij){
     $muziekschooltabel .= '<tr>';
         $muziekschooltabel .= '<td>' .$rij['componistnaam']. '</td>'; 
-        $muziekschooltabel .= '<td>' .date("d/m/Y", strtotime($rij['datum'])). '</td>';   
+        $muziekschooltabel .= '<td>' .date("d F Y", strtotime($rij['datum'])). '</td>'; 
+        $muziekschooltabel .= '<td>' .$rij['muziekschool']. '</td>';  
         $muziekschooltabel .= '<td>' .$rij['plaatsnaam']. '</td>';
     $muziekschooltabel .= '</tr>';
 }

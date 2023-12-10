@@ -47,7 +47,6 @@ foreach ($data as $rij){
         $muziekschooltabel .= '<td>' .$rij['componistnaam']. '</td>';
         $muziekschooltabel .= '<td>' .date("d/m/Y", strtotime($rij['datum'])). '</td>';
     $muziekschooltabel .= '</tr>';
-    
 }
 
 $muziekschooltabel .= '</table>';

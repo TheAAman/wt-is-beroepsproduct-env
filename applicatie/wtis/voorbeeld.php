@@ -18,7 +18,7 @@ $datum = $vandaag->format('d-m-Y');
     <title>PHP voorbeeld</title>
 </head>
 <body>
-    Hallo <?= $naam ?>.<br>
+    Hallo Test 1, 2, 3 <?= $naam ?>.<br>
     <!-- Vliegtuig: <?= $vliegtuignummer = $_GET['vliegtuig'] ?> met vluchtnummer: <?= $vluchtnummer = $_GET['vluchtnummer'] ?> landt op: <?= $landingsbaan = $_GET['landingsbaan'] ?>.<br> -->
 </body>
 </html>

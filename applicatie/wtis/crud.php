@@ -69,8 +69,8 @@ include_once('db_connectie.php');
         <?=getComponist();?>
     </form> -->
 
-        <form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
-    <input type="text" name="componistId" placeholder="componistId">    
+    <form method="POST" action="<?=$_SERVER['PHP_SELF']?>">
+        <input type="text" name="componistId" placeholder="componistId">    
         <input type="text" name="naam" placeholder="naam">
         <input type="text" name="geboortedatum" placeholder="geboortedatum">
         <?php echo getScholen(); ?>

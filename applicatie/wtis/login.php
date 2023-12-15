@@ -1,16 +1,21 @@
 <?php
 session_start();
-
+include_once('db_connectie.php');
 $logged_in = false;
 
-$gebruiker = 'admin';
-$wachtwoord = 'admin';
-
 $hash = password_hash($wachtwoord, PASSWORD_DEFAULT, ['cost' => 12]);
+
+// $gebruiker = 'admin';
+// $wachtwoord = 'admin';
 
 if (isset($_GET['loguit'])){
     session_destroy();
     header('location: login.php');
+}
+
+function checkUser ($username){
+  $db = maakVerbinding():
+  $sql = 'SELECT * From Gebruikers WHERE naam = ? AND 1=1;';
 }
 
 if (isset ($_POST['submit'])){

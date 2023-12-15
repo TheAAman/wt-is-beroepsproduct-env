@@ -1,8 +1,6 @@
 <?php
 
-$passwordhash = password_hash($wachtwoord, PASSWORD_DEFAULT);
-$melding = "password hash: $passwordhash";
-
+// require_once 'db_connectie.php';
 $melding = '';  // nog niks te melden
 
 // check voor de knop
@@ -11,6 +9,9 @@ if(isset($_POST['registeren'])) {
     // 1. inlezen gegevens uit form
     $naam       = $_POST['naam'];
     $wachtwoord = $_POST['wachtwoord'];
+
+    $passwordhash = password_hash($wachtwoord, PASSWORD_DEFAULT);
+    $melding = "password hash: $passwordhash";
 
     // 2. controleren van de gegevens
     if(strlen($naam) < 4) {

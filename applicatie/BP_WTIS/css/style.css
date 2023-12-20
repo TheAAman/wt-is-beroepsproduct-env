@@ -1,0 +1,102 @@
+/* Algemeen */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    width: 80vw;
+    margin: 2em;
+}
+
+/* Header */
+header {
+    background: aquamarine;
+    width: 100%;
+    padding: 2em;
+    color: black;
+    box-shadow: 1px 1px 5px black;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: black;
+    width: 100%;
+    padding: 1em;
+    color: white;
+}
+
+/* index */
+.inlogknop:hover {
+    transition: ease-in 0.2s;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+/* Navigatiebalk Passagier */
+.menupassagier {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: 40px;
+}
+
+.menupitem {
+    background: rgb(19, 196, 163);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s ease-out;
+}
+
+.menupitem:hover {
+    font-weight: bold;
+    background-color: rgb(123, 222, 255);
+}
+
+/* Navigatiebalk Medewerker */
+.menumedewerker {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: 40px;
+}
+
+.menuwitem {
+    background: rgb(19, 196, 163);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s ease-out;
+}
+
+.menuwitem:hover {
+    font-weight: bold;
+    background-color: orange;
+}
+
+
+/* mijnvluchten.html */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 10fr));
+    grid-gap: 1rem;
+}
+
+.vlucht {
+    display: grid;
+    padding: 1em;
+    border: 2px solid black;
+    background: rgb(19, 196, 163);
+}
+

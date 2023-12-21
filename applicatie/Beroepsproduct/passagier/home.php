@@ -1,3 +1,14 @@
+<?php
+    include_once('functie.php');
+    include_once('../db_connectie.php');
+
+    $db = maakVerbinding();
+
+    if (isset($_GET['van'])){
+        vanVlucht($_GET['van']);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,6 +56,12 @@
                     <img src="../img/Amsterdam.jpg" alt="stadsfoto">
                 </p>
             </div>
+
+            <?= krijgVluchten($db, $vanVlucht)?>
+
+            <?= vluchtNavigatie($vanVlucht)?>
+        </div>
+
 
     </main>
 

@@ -1,3 +1,21 @@
+<?php
+    include_once('functie.php');
+    include_once('../db_connectie.php');
+
+    $db = maakVerbinding();
+
+    $vluchtnummer = '-1';
+
+    if(isset($_GET['soorteer'])){
+        $sorteer= krijgSortering($_GET['sorteer']);
+    }
+
+    if (isset($_POST) && isset($_POST['vluchtnummer'])){
+        $vluchtnummer = htmlspecialchars($_POST['vluchtnummer']);
+        $vluchtenData = krijgEnkeleVlucht($vluchtnummer);
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

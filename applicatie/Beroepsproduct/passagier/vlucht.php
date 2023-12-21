@@ -1,3 +1,18 @@
+<?php
+    include_once('functie.php');
+    include_once('../db_connectie.php');
+
+    $db = maakVerbinding();
+
+    if(isset($_GET['vluchtnummer'])){
+        header('location: overzicht.php');
+    } else {
+        $vluchtnummer = $_GET['vluchtnummer']; 
+        $vluchtnummer = htmlspecialchars($vluchtnummer);
+        $vlucht = krijgVluchtDetails($db, $vluchtnummer);
+
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

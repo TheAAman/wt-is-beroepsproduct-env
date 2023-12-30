@@ -17,7 +17,7 @@
         <h2>Hallo Welkom</h2>
         <p>Klik één van de twee</p>
 
-        <a href="/passagier/inloggenp.html">
+        <a href="/passagier/inloggen.html">
             <button class="inlogknop">Passagier</button>
         </a>
 

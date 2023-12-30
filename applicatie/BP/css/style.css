@@ -38,10 +38,38 @@ footer {
 }
 
 /* index */
-.inlogknop:hover {
+/* .inlogknop:hover {
     transition: ease-in 0.2s;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
+} */
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .btn {
+    font-size: 2em;
+    padding: 1em 2em;
+    margin: 0 1em;
+    border-radius: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #3e8e41;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
 
 /* Navigatiebalk Passagier */
 .menupassagier {

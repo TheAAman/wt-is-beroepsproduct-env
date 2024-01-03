@@ -91,7 +91,9 @@ footer {
 
 /* inloggen */
 .inlogTekst {
+    display: grid;
     text-align: center;
+    align-items: center;
     height: 20vh;
     font-size: 50px;
 }
@@ -102,6 +104,7 @@ footer {
     align-items: center;
     height: 30vh;
     text-align: center;
+    font-size: 20px;
 }
 
 /* Navigatiebalk Passagier */

@@ -5,8 +5,8 @@ $logged_in = false;
 
 $hash = password_hash($wachtwoord, PASSWORD_DEFAULT, ['cost' => 12]);
 
-// $gebruiker = 'admin';
-// $wachtwoord = 'admin';
+$gebruiker = 'admin';
+$wachtwoord = 'admin';
 
 if (isset($_GET['loguit'])){
     session_destroy();
@@ -14,7 +14,7 @@ if (isset($_GET['loguit'])){
 }
 
 function checkUser ($username){
-  $db = maakVerbinding():
+  $db = maakVerbinding();
   $sql = 'SELECT * From Gebruikers WHERE naam = ? AND 1=1;';
 }
 

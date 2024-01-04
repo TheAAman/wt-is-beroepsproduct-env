@@ -1,17 +1,17 @@
 <?php
-    include_once('functie.php');
-    include_once('../db_connectie.php');
+    // include_once('functie.php');
+    // include_once('../db_connectie.php');
 
-    $db = maakVerbinding();
+    // $db = maakVerbinding();
 
-    if(isset($_GET['vluchtnummer'])){
-        header('location: overzicht.php');
-    } else {
-        $vluchtnummer = $_GET['vluchtnummer']; 
-        $vluchtnummer = htmlspecialchars($vluchtnummer);
-        $vlucht = krijgVluchtDetails($db, $vluchtnummer);
+    // if(isset($_GET['vluchtnummer'])){
+    //     header('location: overzicht.php');
+    // } else {
+    //     $vluchtnummer = $_GET['vluchtnummer']; 
+    //     $vluchtnummer = htmlspecialchars($vluchtnummer);
+    //     $vlucht = krijgVluchtDetails($db, $vluchtnummer);
 
-    }
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,14 +28,23 @@
     </header>
 
     <div class="menupassagier">
-        <div class="menupitem">Mijn vluchten</div>
-        <div class="menupitem">Bagage</div>
-        <div class="menupitem">Vluchten</div>
+        <div class="menupitem"><a href="homep.php">Home</a></div>
+        <div class="menupitem"><a href="overzicht.php">Vluchten</a></div>
+        <div class="menupitem"><a href="inchecken.php">Bagage</a></div>
         <div class="menupitem">Uitloggen</div>
     </div>
 
     <main>
+        <div class="vlucht">
+                <h4>New York</h4>
+                <p>
+                    <img src="../img/NY.jpg" alt="stadsfoto">
+                </p>
 
+            <div class="vluchtTekst">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+            </div>
+        </div>
     </main>
 
     <footer>

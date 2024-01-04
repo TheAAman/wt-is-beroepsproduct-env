@@ -13,9 +13,9 @@
     </header>
 
     <div class="menupassagier">
-        <div class="menupitem">Mijn vluchten</div>
-        <div class="menupitem">Bagage</div>
-        <div class="menupitem">Vluchten</div>
+        <div class="menupitem"><a href="homep.php">Home</a></div>
+        <div class="menupitem"><a href="overzicht.php">Vluchten</a></div>
+        <div class="menupitem"><a href="inchecken.php">Bagage</a></div>
         <div class="menupitem">Uitloggen</div>
     </div>
 

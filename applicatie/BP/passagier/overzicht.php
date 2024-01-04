@@ -1,19 +1,19 @@
 <?php
-    include_once('functie.php');
-    include_once('../db_connectie.php');
+    // include_once('functie.php');
+    // include_once('../db_connectie.php');
 
-    $db = maakVerbinding();
+    // $db = maakVerbinding();
 
-    $vluchtnummer = '-1';
+    // $vluchtnummer = '-1';
 
-    if(isset($_GET['soorteer'])){
-        $sorteer= krijgSortering($_GET['sorteer']);
-    }
+    // if(isset($_GET['soorteer'])){
+    //     $sorteer= krijgSortering($_GET['sorteer']);
+    // }
 
-    if (isset($_POST) && isset($_POST['vluchtnummer'])){
-        $vluchtnummer = htmlspecialchars($_POST['vluchtnummer']);
-        $vluchtenData = krijgEnkeleVlucht($vluchtnummer);
-    }
+    // if (isset($_POST) && isset($_POST['vluchtnummer'])){
+    //     $vluchtnummer = htmlspecialchars($_POST['vluchtnummer']);
+    //     $vluchtenData = krijgEnkeleVlucht($vluchtnummer);
+    // }
 
 ?>
 <!DOCTYPE html>
@@ -31,12 +31,11 @@
     </header>
 
     <div class="menupassagier">
-        <div class="menupitem">Mijn vluchten</div>
-        <div class="menupitem">Bagage</div>
-        <div class="menupitem">Vluchten</div>
+        <div class="menupitem"><a href="homep.php">Home</a></div>
+        <div class="menupitem"><a href="overzicht.php">Vluchten</a></div>
+        <div class="menupitem"><a href="inchecken.php">Bagage</a></div>
         <div class="menupitem">Uitloggen</div>
     </div>
-
     <main>
 
     </main>

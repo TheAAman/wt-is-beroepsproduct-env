@@ -1,12 +1,12 @@
 <?php
-    include_once('functie.php');
-    include_once('../db_connectie.php');
+    // include_once('functie.php');
+    // include_once('../db_connectie.php');
 
-    $db = maakVerbinding();
+    // $db = maakVerbinding();
 
-    if (isset($_GET['van'])){
-        vanVlucht($_GET['van']);
-    }
+    // if (isset($_GET['van'])){
+    //     vanVlucht($_GET['van']);
+    // }
 ?>
 
 <!DOCTYPE html>

@@ -39,7 +39,7 @@
             <div class="vlucht">
                 <h4>New York</h4>
                 <p>
-                    <img src="../img/NY.jpg" alt="stadsfoto">
+                    <a href="vlucht.php"><img src="../img/NY.jpg" alt="stadsfoto"></a>
                 </p>
             </div>
 

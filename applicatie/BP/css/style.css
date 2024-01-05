@@ -107,47 +107,7 @@ footer {
     font-size: 20px;
 }
 
-/* Navigatiebalk Passagier */
-.menupassagier {
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-template-rows: 40px;
-}
 
-.menupitem {
-    background: rgb(19, 196, 163);
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    transition: all 1s ease-out;
-}
-
-.menupitem:hover {
-    font-weight: bold;
-    background-color: rgb(123, 222, 255);
-}
-
-/* Navigatiebalk Medewerker */
-.menumedewerker {
-    width: 100%;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-template-rows: 40px;
-}
-
-.menuwitem {
-    background: rgb(19, 196, 163);
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    transition: all 1s ease-out;
-}
-
-.menuwitem:hover {
-    font-weight: bold;
-    background-color: orange;
-}
 
 
 /* mijnvluchten.html */

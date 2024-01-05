@@ -84,7 +84,7 @@ if (isset ($_POST['submit'])){ // Checks if the form with the name 'submit' has 
         <a href="https:www.han.nl">
             <img src="https://www.han.nl/lib/v3/images/han_university.svg" alt="Logo van de HAN" title="HAN">
         </a>
-        <a href="../privacy.php">Privacy Policy</a> 
+        <a href="privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

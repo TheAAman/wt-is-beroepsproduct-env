@@ -18,6 +18,7 @@
 <head>
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/stylep.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vluchtinfo</title>
@@ -36,11 +37,10 @@
 
     <main>
         <div class="vlucht">
-                <h4>New York</h4>
-                <p>
-                    <img src="../img/NY.jpg" alt="stadsfoto">
-                </p>
-
+            <div class="vluchtBestemming"><h2>New York</h4></div>
+            <div class="vluchtImg">
+                <img src="../img/NY.jpg" alt="stadsfoto">
+            </div>
             <div class="vluchtTekst">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
             </div>

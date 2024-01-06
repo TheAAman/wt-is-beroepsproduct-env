@@ -28,7 +28,7 @@
     <div class="menupassagier">
         <div class="menupitem"><a href="homep.php">Home</a></div>
         <div class="menupitem"><a href="overzicht.php">Vluchten</a></div>
-        <div class="menupitem"><a href="inchecken.php">Bagage</a></div>
+        <div class="menupitem"><a href="inchecken.php">Inchecken</a></div>
         <div class="menupitem">Uitloggen</div>
     </div>
 

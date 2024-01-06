@@ -31,7 +31,7 @@
     <div class="menupassagier">
         <div class="menupitem"><a href="homep.php">Home</a></div>
         <div class="menupitem"><a href="overzicht.php">Vluchten</a></div>
-        <div class="menupitem"><a href="inchecken.php">Bagage</a></div>
+        <div class="menupitem"><a href="inchecken.php">Inchecken</a></div>
         <div class="menupitem">Uitloggen</div>
     </div>
 
@@ -44,6 +44,7 @@
             <div class="vluchtTekst">
                 <p>Vluchtnummer:</p>
                 <p>Bestemming:</p>
+                <p>Balienummer:</p>
                 <p>Gatecode:</p>
                 <p>Vertrektijd:</p>
                 <p>Maatschappijcode:</p>

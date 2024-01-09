@@ -24,7 +24,7 @@
     <div class="btn-group">
         <a href="inloggen.php"><button class="btn">Passagier</button></a>
         <p style="font-size: 2em; margin: 0 1em;">of</p>
-        <a href="medewerker/inloggen.html"><button class="btn">Medewerker</button></a>
+        <a href="inloggen.php"><button class="btn">Medewerker</button></a>
     </div>
 
     <footer>

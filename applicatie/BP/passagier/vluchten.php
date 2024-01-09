@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/stylep.css">
+    <link rel="icon" type="image/jpg" href="../../BP/img/vticon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vluchtoverzicht</title>
@@ -32,27 +33,39 @@
     </header>
 
     <div class="menupassagier">
-        <div class="menupitem"><a href="homep.php">Home</a></div>
-        <div class="menupitem"><a href="overzicht.php">Vluchten</a></div>
-        <div class="menupitem"><a href="inchecken.php">Inchecken</a></div>
-        <div class="menupitem">Uitloggen</div>
+        <a href="homep.php" class="menupitem">Home</a>
+        <a href="vluchten.php" class="menupitem">Vluchten</a>
+        <a href="inchecken.php" class="menupitem">Inchecken</a>
+        <a href="../inloggen.php" class="menupitem">Uitloggen</a>
     </div>
+    
     <main>
         <div class="zoekBalk">
-            <div class="titelBalk"><h3>Vluchtnummer:</h3></div>
+            <h3>Vluchtnummer:</h3>
             <div class="balkBalk">
                 <input class="zoekbalkBalk" type="text" placeholder="Zoeken">
             </div>
-            <div class="zoekKnop"><button>Search</button></div>
+            <button class="zoekKnop">
+                <img class="zoekIcoon" src="../img/search-icon.webp">
+                <div class="tooltip">Zoeken</div>
+            </button>
         </div>
 
         <div class="vluchtOverzicht">
-            <div class="eenvluchtOverzicht">
-                <p>Vluchtnummer:</p>
-                <p>Bestemming: </p>
-                <p>Vertrektijd: </p>
-            </div>
-
+            <table class="tabelvluchtOverzicht">
+                <tr>
+                    <th>Vluchtnummer</th>
+                    <th>Bestemming</th>
+                    <th>Vertrektijd</th>
+                </tr>
+                <div class="eenvluchtOverzicht">
+                    <tr>
+                        <td>28764</td>
+                        <td>AMS</td>
+                        <td>2023-10-11 06:46:00.000</td>
+                    </tr>
+                </div>
+            </table>           
         </div>
 
     </main>

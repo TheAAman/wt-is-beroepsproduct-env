@@ -52,6 +52,7 @@ if (isset ($_POST['submit'])){ // Checks if the form with the name 'submit' has 
     <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="../../BP/img/vticon.png">
     <title>Inloggen Passagier</title>
 </head>
 <body>

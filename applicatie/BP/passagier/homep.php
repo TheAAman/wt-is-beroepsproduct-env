@@ -18,6 +18,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="../../BP/img/vticon.png">
     <title>Home passagier</title>
 </head>
 <body>
@@ -26,31 +27,29 @@
     </header>
 
     <div class="menupassagier">
-        <div class="menupitem"><a href="homep.php">Home</a></div>
-        <div class="menupitem"><a href="overzicht.php">Vluchten</a></div>
-        <div class="menupitem"><a href="inchecken.php">Inchecken</a></div>
-        <div class="menupitem">Uitloggen</div>
+        <a href="homep.php" class="menupitem">Home</a>
+        <a href="vluchten.php" class="menupitem">Vluchten</a>
+        <a href="inchecken.php" class="menupitem">Inchecken</a>
+        <a href="../inloggen.php" class="menupitem">Uitloggen</a>
     </div>
 
     <main>
-        <p>Uw geboekte vluchten</p>
-
-        <div class="grid">
-            <div class="vlucht">
+        <div class="homepgrid">
+            <div class="homepvlucht">
                 <h4>New York</h4>
                 <p>
                     <a href="vlucht.php"><img src="../img/NY.jpg" alt="stadsfoto"></a>
                 </p>
             </div>
 
-            <div class="vlucht">
+            <div class="homepvlucht">
                 <h4>Paris</h4>
                 <p>
                     <img src="../img/Paris.jpg" alt="stadsfoto">
                 </p>
             </div>
 
-            <div class="vlucht">
+            <div class="homepvlucht">
                 <h4>Amsterdam</h4>
                 <p>
                     <img src="../img/Amsterdam.jpg" alt="stadsfoto">

@@ -42,6 +42,7 @@ footer {
     color: white;
 }
 
+
 /* index */
 .welkomTekst {
     text-align: center;
@@ -109,17 +110,5 @@ footer {
 
 
 
-/* mijnvluchten.html */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 10fr));
-    grid-gap: 1rem;
-}
 
-.vlucht {
-    display: grid;
-    padding: 1em;
-    border: 2px solid black;
-    background: rgb(19, 196, 163);
-}
 

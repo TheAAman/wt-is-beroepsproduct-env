@@ -19,9 +19,10 @@
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/stylep.css">
+    <link rel="icon" type="image/jpg" href="../../BP/img/vticon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vluchtinfo</title>
+    <title>Vlucht</title>
 </head>
 <body>
     <header>
@@ -29,10 +30,10 @@
     </header>
 
     <div class="menupassagier">
-        <div class="menupitem"><a href="homep.php">Home</a></div>
-        <div class="menupitem"><a href="overzicht.php">Vluchten</a></div>
-        <div class="menupitem"><a href="inchecken.php">Inchecken</a></div>
-        <div class="menupitem">Uitloggen</div>
+        <a href="homep.php" class="menupitem">Home</a>
+        <a href="vluchten.php" class="menupitem">Vluchten</a>
+        <a href="inchecken.php" class="menupitem">Inchecken</a>
+        <a href="../inloggen.php" class="menupitem">Uitloggen</a>
     </div>
 
     <main>

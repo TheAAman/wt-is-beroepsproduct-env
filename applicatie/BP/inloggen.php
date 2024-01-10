@@ -53,7 +53,7 @@ if (isset ($_POST['submit'])){ // Checks if the form with the name 'submit' has 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpg" href="../../BP/img/vticon.png">
-    <title>Inloggen Passagier</title>
+    <title>Inloggen</title>
 </head>
 <body>
     <!-- <?php
@@ -73,8 +73,8 @@ if (isset ($_POST['submit'])){ // Checks if the form with the name 'submit' has 
         <div class="inlogBlok">
             
             <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
-                    <input type="text" name="username" placeholder="naam">
-                    <input type="password" name="password" placeholder="wachtwoord">
+                    <input type="text" name="username" placeholder="naam" required>
+                    <input type="password" name="password" placeholder="wachtwoord" required>
                     <input type="submit" name="submit" value="login">
             </form>
         </div>

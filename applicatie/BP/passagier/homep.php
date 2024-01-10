@@ -1,12 +1,17 @@
 <?php
-    // include_once('functie.php');
+    /* include_once('functie.php');
     // include_once('../db_connectie.php');
 
     // $db = maakVerbinding();
 
     // if (isset($_GET['van'])){
     //     vanVlucht($_GET['van']);
-    // }
+    }
+
+    <?= krijgVluchten($db, $vanVlucht)?> lijn 60
+
+    <?= vluchtNavigatie($vanVlucht)?> lijn 62
+    */
 ?>
 
 <!DOCTYPE html>
@@ -56,9 +61,7 @@
                 </p>
             </div>
 
-            <!-- <?= krijgVluchten($db, $vanVlucht)?>
 
-            <?= vluchtNavigatie($vanVlucht)?> -->
         </div>
     </main>
 
@@ -66,7 +69,7 @@
         <a href="https:www.han.nl">
             <img src="https://www.han.nl/lib/v3/images/han_university.svg" alt="Logo van de HAN" title="HAN">
         </a>
-        <a href="../privacy.php">Privacy Policy</a> 
+        <a href= "../privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 

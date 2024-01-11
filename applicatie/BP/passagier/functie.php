@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 function krijgSortering($sortering){
     
@@ -120,8 +120,4 @@ function krijgVluchten ($db, $van = 0){
     }
 }
 
-
-
-
-
-?> -->
+?> 

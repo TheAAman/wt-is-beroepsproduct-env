@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../../css/normalize.css">
+    <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/stylep.css">
     <link rel="stylesheet" href="../css/style.css">
     <meta charset="UTF-8">
@@ -24,7 +24,7 @@
     <main>
         <div class="incheckVelden">
             <div class="incheckveldP">
-                <form action="functie.php" method="POST">
+                <form action="inchecken.php" method="POST">
                     <div class="titelincheckFormulier">
                     <p><h2>Passagier inchecken</h2></p>
                     </div>

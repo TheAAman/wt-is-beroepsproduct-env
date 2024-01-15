@@ -78,7 +78,6 @@ if (isset ($_POST['submit'])){ // Checks if the form with the name 'submit' has 
                     <input type="submit" name="submit" value="login">
             </form>
         </div>
-
     </main>
 
     <footer>

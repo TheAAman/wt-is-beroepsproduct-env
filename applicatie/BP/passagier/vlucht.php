@@ -51,7 +51,7 @@
                 <p>Vertrektijd:</p>
                 <p>Maatschappijcode:</p>
                 <p>Passagiers: ../ 350</p>
-        </div>
+            </div>
         </div>
     </main>
 

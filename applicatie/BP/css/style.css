@@ -1,4 +1,5 @@
-/* Algemeen */
+/* ALLES */
+/* body */
 body {
     font-family: Arial, Helvetica, sans-serif;
     overflow-x: hidden;
@@ -42,14 +43,30 @@ footer {
     color: white;
 }
 
+/* ALGEMEEN */
+/* Animatie algemene pagina's */
+@keyframes fade-inout {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 /* index */
 .welkomTekst {
+    animation: fade-inout 2s linear;
     text-align: center;
     font-size: 40px;
 }
 
+.tussenTeken {
+    font-size: 2em; margin: 0 1em;
+}
+
 .btn-group {
+    animation: fade-inout 2s linear;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,6 +94,15 @@ footer {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
+@media screen and (max-width: 600px) {
+    .btn-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 /* privacy */
 .privacyTekst {
     display: flex;
@@ -89,8 +115,10 @@ footer {
     text-align: center;
 }
 
+/* MEDEWERKER & PASSAGIER */
 /* inloggen */
 .inlogTekst {
+    animation: fade-inout 2s linear;
     display: grid;
     text-align: center;
     align-items: center;
@@ -98,14 +126,301 @@ footer {
     font-size: 50px;
 }
 
-.inlogBlok{
+.inlogBlok form {
+    animation: fade-inout 2s linear;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 30vh;
+    font-size: 20px;
+}
+
+.inlogBlok input {
+    margin-right: 10px;
+}
+
+.terugKnop {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30vh;
-    text-align: center;
+    height: 10vh;
     font-size: 20px;
 }
+
+/* Navigatiebalk*/
+.menunavigatie {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: 40px;
+}
+ 
+.menuitem {
+    background: rgb(19, 196, 163);
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    transition: all 1s ease-out;
+    text-decoration: none;
+    color: black;
+}
+
+.menuitem:hover {
+    font-weight: bold;
+    background-color: rgb(123, 222, 255);
+}
+
+
+/* Vluchtdetails algemeen*/
+.vlucht {
+    background-color: aquamarine;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-rows: auto 1fr; 
+    padding: 3em;
+    align-items: center;
+    justify-items: center;
+}
+
+.vluchtImg {
+    grid-row-start: 2;
+}
+
+.vluchtTekst {
+    grid-column-start: 2;
+    grid-row: span 2;
+    overflow: auto; /* Enable scrolling for text overflow */
+    justify-self: start;
+}
+
+@media screen and (max-width: 600px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .vlucht {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .vluchtTekst {
+        grid-column-start: 1;
+        grid-row-start: 3;
+    }
+}
+
+/* Vluchten algemeen*/
+/* Zoekbalk */
+.zoekBalk form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: aquamarine;
+    padding: 1em;
+}
+
+.balkBalk {
+    flex: 1; 
+    margin: 1em;
+}
+
+.zoekbalkBalk {
+    width: 100%;
+    height: 20px;
+    box-shadow: inset 1px 2px 3px rgb(0, 0, 0, 0.05);
+} 
+
+.zoekKnop {
+    background-color: white;
+    position: relative;
+}
+
+/* Overzicht & Tabel */
+.Overzicht {
+    margin: 15px;
+}
+
+.tabelOverzicht, td, th {
+    border: 1px solid;
+    padding: 20px;
+}
+
+.tabelOverzicht{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+    .tabelOverzicht {
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .tabelOverzicht th, .tabelOverzicht td {
+        padding: 10px;
+        word-wrap: break-word; 
+    }
+}
+
+/* Tabelinhoud */
+.vluchtenLink {
+    text-decoration: none;
+    color: black;
+}
+
+
+/* Inchecken algemeen*/
+.incheckVelden {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.incheckveldP {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: aquamarine;
+}
+
+.incheckveldB {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: aquamarine;
+    align-self: flex-start; /* Added property */
+    width: 100%;
+    height: 100%;
+}
+
+.titelincheckFormulier {
+    align-self: flex-start;
+    align-self: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form :nth-child(even).form-field {
+    background: rgb(149, 203, 215);
+}
+
+.form-field {
+    width: 100%;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;   
+}
+
+.incheckKnop, .opslagKnop {
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.incheckKnop .tooltipIP,
+.incheckKnop .tooltipIB {
+    position: absolute;
+    background-color: grey;
+    color: white;
+    padding: 4px;
+    border-radius: 2px;
+    font-size: 12px;
+    bottom: -30px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.incheckKnop:hover .tooltipIP,
+.incheckKnop:hover .tooltipIB {
+    opacity: 1;
+}
+
+@media screen and (max-width: 600px) {
+    .incheckVelden {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .incheckveldP {
+        width: 100%;
+    }
+
+    .incheckveldB {
+        display: flex;
+    }
+}
+
+
+
+/* PASSAGIER */
+/* homep.html */
+.homepgrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 10fr));
+    grid-gap: 1rem;
+}
+
+.homepvlucht {
+    display: grid;
+    padding: 1em;
+    border: 2px solid black;
+    background: rgb(19, 196, 163);
+}
+
+
+
+/* MEDEWERKER */
+.terugKnop {
+    justify-content: left;
+}
+
+/* VluchtenM */
+.toevoegenVlucht {
+    margin: 10px;
+}
+
+/* Passagier */
+.passagierWijzigen {
+    margin: 10px;
+}
+
+.passagier {
+    background-color: aquamarine;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-rows: auto 1fr; 
+    padding: 3em;
+    align-items: center;
+    justify-items: center;
+}
+
+.passagierDetails {
+    grid-column-start: 2;
+    grid-row: span 2;
+    overflow: auto; /* Enable scrolling for text overflow */
+    justify-self: start;
+}
+
 
 
 

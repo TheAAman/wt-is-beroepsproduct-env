@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpg" href="../img/Icons/vticon.png">
-    <title>Vluchtinfo</title>
+    <title>Overzicht vluchten</title>
 </head>
 <body>
     <header>
@@ -21,22 +21,29 @@
     </div>
 
     <main>
-        <div class="vlucht">
-            <div class="vluchtBestemming"><h2>New York</h2></div>
-            <div class="vluchtImg">
-                <img src="../img/Steden/NY.jpg" alt="stadsfoto">
-            </div>
-            <div class="vluchtTekst">
-                <p><strong>Vertrektijd:</strong> 06:46:00</p>
-                <p><strong>Vluchtnummer:</strong> 27544</p>
-                <p><strong>Bestemming:</strong> New York City</p>
-                <p><strong>Balienummer:</strong> 7</p>
-                <p><strong>Gate:</strong> A</p>
-                <p><strong>Luchthaven:</strong> Luchthaven Schiphol</p>
-                <p><strong>Maatschappij:</strong> Amsterdam Airlines</p>
-                <p><strong>Passagiers:</strong> 243/ 350</p>
-            </div>
+
+        <div class="zoekBalk">
+            <form action="passagierZoeken.html" method="get">
+                <h3>Passagiernummer:</h3>
+                <div class="balkBalk">
+                    <input class="zoekbalkBalk" type="number" name="Passagiernummer" placeholder="Nummer">
+                </div>
+                <div class="zoekKnopContainer">
+                    <input class="zoekKnop" type="submit" value="Zoeken">
+                </div>
+            </form>
+
+            <form action="passagierZoeken.html" method="get">
+                <h3>Naam:</h3>
+                <div class="balkBalk">
+                    <input class="zoekbalkBalk" type="text" name="Passagiernaam" placeholder="Naam">
+                </div>
+                <div class="zoekKnopContainer">
+                    <input class="zoekKnop" type="submit" value="Zoeken">
+                </div>
+            </form>
         </div>
+
     </main>
 
     <footer>

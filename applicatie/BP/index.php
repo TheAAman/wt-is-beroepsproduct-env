@@ -20,9 +20,9 @@
             <p>Klik één van de twee</p>
         </div>
         <div class="btn-group">
-            <a href="/passagier/inloggenP.html" class="btn">Passagier</a>
+            <a href="./passagier/inloggenP.php" class="btn">Passagier</a>
             <p class="tussenTeken">of</p>
-            <a href="/medewerker/inloggenM.html" class="btn">Medewerker</a>
+            <a href="./medewerker/inloggenm.php" class="btn">Medewerker</a>
         </div>        
     </main>
 

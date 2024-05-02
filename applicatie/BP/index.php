@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +31,7 @@
 
     <footer>
         <img src="img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="privacy.html">Privacy Policy</a> 
+        <a href="privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

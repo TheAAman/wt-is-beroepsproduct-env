@@ -18,7 +18,7 @@
             <p>Vul hier uw inloggegevens in:</p>
         </div>
         <div class="inlogBlok">
-            <form action="homeP.html" method="post">
+            <form action="homeP.php" method="post">
                     <input type="text" name="username" placeholder="naam" required>
                     <input type="password" name="password" placeholder="wachtwoord" required>
                     <input type="submit" name="submit" value="login">
@@ -31,7 +31,7 @@
 
     <footer>
         <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
+        <a href="../privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

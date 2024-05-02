@@ -15,10 +15,10 @@
     </header>
 
     <div class="menunavigatie">
-        <a href="homeP.html" class="menuitem">Home</a>
-        <a href="vluchtenP.html" class="menuitem">Vluchten</a>
-        <a href="incheckenP.html" class="menuitem">Inchecken</a>
-        <a href="inloggenP.html" class="menuitem">Uitloggen</a>
+        <a href="homeP.php" class="menuitem">Home</a>
+        <a href="vluchtenP.php" class="menuitem">Vluchten</a>
+        <a href="incheckenP.php" class="menuitem">Inchecken</a>
+        <a href="inloggenP.php" class="menuitem">Uitloggen</a>
     </div>
 
     <main>
@@ -27,7 +27,7 @@
             <div class="homepvlucht">
                 <h3>New York</h3>
                 <p>
-                    <a href="vluchtP.html"><img src="../img/Steden/NY.jpg" alt="stadsfoto"></a>
+                    <a href="vluchtP.php"><img src="../img/Steden/NY.jpg" alt="stadsfoto"></a>
                 </p>
                 <p><strong>Vertrekt:</strong> 06:46:00</p>
                 <p><strong>Balie:</strong> 7</p>
@@ -69,7 +69,7 @@
 
     <footer>
         <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
+        <a href="../privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

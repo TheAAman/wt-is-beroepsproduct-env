@@ -1,3 +1,33 @@
+<?php 
+include 'db_connectie.php';
+
+if (isset($_POST['username']) && isset($_POST['password'])) {
+        
+    function checkLogin($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars ($data);
+        return $data;
+    }
+
+    $username = checkLogin($_POST['username']);
+    $password = checkLogin($_POST['password']);
+
+    if (empty($username) || empty($password)) {
+        header('Location: inloggenP.php?error=1');
+        exit();
+    } else {
+        $sql = "SELECT * FROM Passagier WHERE naam = '$username' AND wachtwoord = '$password'";	
+    
+        $result = $verbinding->query($sql);
+    }
+
+} else {
+    header('Location: inloggenP.php?error=1');
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

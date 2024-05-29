@@ -1,3 +1,15 @@
+<?php
+
+    include_once('../includes/db_connectie.php');
+
+    if isset ($_POST['submit']) {
+
+    } else {
+        header('Location: inloggenM.php?error=1');
+        exit();
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,10 +26,10 @@
     </header>
 
     <div class="menunavigatie">
-        <a href="incheckenM.html" class="menuitem">Inchecken</a>
-        <a href="vluchtenM.html" class="menuitem">Vluchten</a>
-        <a href="passagierZoeken.html" class="menuitem">Passagiers</a>
-        <a href="inloggenM.html" class="menuitem">Uitloggen</a>
+        <a href="incheckenM.php" class="menuitem">Inchecken</a>
+        <a href="vluchtenM.php" class="menuitem">Vluchten</a>
+        <a href="passagierZoeken.php" class="menuitem">Passagiers</a>
+        <a href="inloggenM.php" class="menuitem">Uitloggen</a>
     </div>
     
     <main>

@@ -7,30 +7,32 @@ $logged_in = false; // Initializes a variable $logged_in as false
 
 if (isset($_GET['loguit'])){ // Checks if 'loguit' is set in the URL query parameters
     session_destroy(); // Destroys all data associated with the session
-    header('location: login.php'); // Redirects to 'login.php'
+    header('Location: login.php'); // Redirects to 'login.php'
     exit();
 }
 
 function checkUser ($username){ // Defines a function named checkUser that accepts a parameter $username
-  $db = maakVerbinding(); // Calls the function maakVerbinding to create a database connection
+    $db = maakVerbinding(); // Calls the function maakVerbinding to create a database connection
+    
+    $sql = 'SELECT * From Passagier WHERE naam = :username AND 1=1;'; // Defines an SQL query to select data from the 'Gebruikers' table
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":username", $username);
+    $stmt->execute();
   
-  $sql = 'SELECT * From Gebruikers WHERE naam = ? AND 1=1;'; // Defines an SQL query to select data from the 'Gebruikers' table
-  $stmt = $db->prepare($sql);
-  $stmt->bind_param('s', $username);
-  $stmt->execute();
-  $result = $stmt->get_result();
-
-  if ($result->num_rows === 1) {
-    $row = $result->fetch_assoc();
-    $stored_password = $row['password']; // Assuming 'password' is the column name in the database
-
-    // Verify the submitted password against the stored hashed password
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); // Fetches the result as an associative array
+  
+    if ($row) { // Checks if a row is found
+      $stored_password = $row['wachtwoord']; // Assuming 'password' is the column name in the database
+  
+      // Verify the submitted password against the stored hashed password
+     $password = $_POST['password']; // Retrieves the value of 'password' from the submitted form
+     
     if (password_verify($password, $stored_password)) {
-        return true; // Passwords match, user is authenticated
-    }
-}
-return false; // Username or password doesn't match or user doesn't exist
-}
+          return true; // Passwords match, user is authenticated
+      }
+  }
+  return false; // Username or password doesn't match or user doesn't exist
+  }
 
 if (isset ($_POST['submit'])){ // Checks if the form with the name 'submit' has been submitted via POST method
     $username = $_POST['username']; // Retrieves the value of 'username' from the submitted form
@@ -40,6 +42,8 @@ if (isset ($_POST['submit'])){ // Checks if the form with the name 'submit' has 
         $_SESSION['username'] = $username;
         $logged_in = true;
         // Redirect to the logged-in page or perform necessary actions
+        header('Location: homep.php'); // Redirects to a welcome page or the appropriate logged-in page
+        exit();
     } else {
         echo "Invalid username or password"; // Display an error message for unsuccessful login attempts
     }

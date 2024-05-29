@@ -18,7 +18,7 @@
             <p>Vul hier uw inloggegevens in:</p>
         </div>
         <div class="inlogBlok">
-            <form action="incheckenM.html" method="post">
+            <form action="incheckenM.php" method="post">
                     <input type="text" name="username" placeholder="naam" required>
                     <input type="password" name="password" placeholder="wachtwoord" required>
                     <input type="submit" name="submit" value="login">

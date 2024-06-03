@@ -11,7 +11,7 @@ if (isset($_GET['loguit'])){ // Checks if 'loguit' is set in the URL query param
     exit();
 }
 
-function checkUser ($username){ // Defines a function named checkUser that accepts a parameter $username
+function checkUser ($username, $password){ // Defines a function named checkUser that accepts a parameter $username
     $db = maakVerbinding(); // Calls the function maakVerbinding to create a database connection
     
     $sql = 'SELECT * From Passagier WHERE naam = :username AND 1=1;'; // Defines an SQL query to select data from the 'Gebruikers' table

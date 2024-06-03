@@ -1,15 +1,21 @@
-<?php
+<!-- <?php
 
     include_once('../includes/db_connectie.php');
 
     if isset ($_POST['submit']) {
+
+        $Pname = $_POST['Pname'];
+        $Vnummer = $_POST['Vnummer'];
+        $Bnummer = $_POST['Bnummer'];
+        $Pnummer = $_POST['Pnummer'];
+        $Geslacht = $_POST['gender']
 
     } else {
         header('Location: inloggenM.php?error=1');
         exit();
     }
 
-?>
+?> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

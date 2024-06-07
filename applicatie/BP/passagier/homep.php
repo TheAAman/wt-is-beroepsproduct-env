@@ -1,4 +1,6 @@
 <?php 
+session_start();
+
 include 'db_connectie.php';
 
 if (isset($_POST['username']) && isset($_POST['password'])) {

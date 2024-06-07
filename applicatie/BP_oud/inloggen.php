@@ -1,7 +1,7 @@
 <?php
 session_start(); // Starts or resumes the session
 
-include_once('db_connectie.php'); // Includes the external file 'db_connectie.php'
+require_once('db_connectie.php'); // Includes the external file 'db_connectie.php'
 
 $logged_in = false; // Initializes a variable $logged_in as false
 

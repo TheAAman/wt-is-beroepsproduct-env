@@ -1,32 +1,78 @@
 <?php 
 session_start();
 
-include 'db_connectie.php';
+require_once ('../includes/db_connectie.php');
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
+$logged_in = false;
+
+if (isset($_GET['loguit'])){ 
+    session_destroy(); 
+    header('Location: login.php'); 
+    exit();
+}
+
+// if (isset($_POST['username']) && isset($_POST['password'])) {
         
-    function checkLogin($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars ($data);
-        return $data;
-    }
+//     function checkLogin($data) {
+//         $data = trim($data);
+//         $data = stripslashes($data);
+//         $data = htmlspecialchars ($data);
+//         return $data;
+//     }
 
-    $username = checkLogin($_POST['username']);
-    $password = checkLogin($_POST['password']);
+//     $username = checkLogin($_POST['username']);
+//     $password = checkLogin($_POST['password']);
 
-    if (empty($username) || empty($password)) {
-        header('Location: inloggenP.php?error=1');
+//     if (empty($username) || empty($password)) {
+//         header('Location: inloggenP.php?error=1');
+//         exit();
+//     } else {
+//         $sql = "SELECT * FROM Passagier WHERE naam = '$username' AND wachtwoord = '$password'";	
+    
+//         $result = $verbinding->query($sql);
+//     }
+
+// } else {
+//     header('Location: inloggenP.php?error=1');
+//     exit();
+// }
+
+function checkUser ($username, $password){ // Defines a function named checkUser that accepts a parameter $username
+    $db = maakVerbinding(); // Calls the function maakVerbinding to create a database connection
+    
+    $sql = 'SELECT * From Passagier WHERE naam = :username AND 1=1;'; // Defines an SQL query to select data from the 'Gebruikers' table
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":username", $username);
+    $stmt->execute();
+  
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); // Fetches the result as an associative array
+  
+    if ($row) { // Checks if a row is found
+      $stored_password = $row['wachtwoord']; // Assuming 'password' is the column name in the database
+  
+      // Verify the submitted password against the stored hashed password
+     $password = $_POST['password']; // Retrieves the value of 'password' from the submitted form
+     
+    if (password_verify($password, $stored_password)) {
+          return true; // Passwords match, user is authenticated
+      }
+  }
+  return false; // Username or password doesn't match or user doesn't exist
+  }
+
+if (isset ($_POST['loginP'])){ // Checks if the form with the name 'submit' has been submitted via POST method
+    $username = $_POST['username']; // Retrieves the value of 'username' from the submitted form
+    $password = $_POST['password']; // Retrieves the value of 'password' from the submitted form
+
+    if (checkUser($username, $password)){
+        $_SESSION['username'] = $username;
+        $logged_in = true;
+        // Redirect to the logged-in page or perform necessary actions
+        header('Location: homep.php'); // Redirects to a welcome page or the appropriate logged-in page
         exit();
     } else {
-        $sql = "SELECT * FROM Passagier WHERE naam = '$username' AND wachtwoord = '$password'";	
-    
-        $result = $verbinding->query($sql);
+        echo "Invalid username or password"; // Display an error message for unsuccessful login attempts
     }
-
-} else {
-    header('Location: inloggenP.php?error=1');
-    exit();
 }
 
 ?>

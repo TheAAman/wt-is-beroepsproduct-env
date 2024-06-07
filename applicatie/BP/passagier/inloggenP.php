@@ -1,7 +1,45 @@
 <?php
-    session_start();
+session_start();
 
-    include_once('../includes/db_connectie.php');
+require_once('../includes/db_connectie.php'); 
+
+$logged_in = false;
+
+function checkUser ($username, $password){ 
+    $db = maakVerbinding(); 
+    
+    $sql = 'SELECT * From Passagier WHERE naam = :username;'; 
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":username", $username);
+    $stmt->execute();
+  
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); 
+  
+    if ($row) { 
+      $stored_password = $row['wachtwoord'];
+     
+    // if (password_verify($password, $stored_password)) {
+    if ($password === $stored_password){
+          return true; 
+        }
+    }
+    return false; 
+}
+
+if (isset($_POST['loginP'])){ 
+    $username = $_POST['username']; 
+    $password = $_POST['password']; 
+
+    if (checkUser($username, $password)){
+        $_SESSION['username'] = $username;
+        $logged_in = true;
+        
+        header('Location: homep.php'); 
+        exit();
+    } else {
+        echo "Invalid username or password"; 
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -15,6 +53,12 @@
     <title>Inloggen Passagier</title>
 </head>
 <body>
+    <?php
+        if ($logged_in) {
+            header('Location: homep.php');
+            exit();
+        }
+    ?>
     <header>
         <h1>Gelre airport</h1>
     </header>
@@ -24,10 +68,10 @@
             <p>Vul hier uw inloggegevens in:</p>
         </div>
         <div class="inlogBlok">
-            <form action="homeP.php" method="post">
+            <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
                     <input type="text" name="username" placeholder="naam" required>
                     <input type="password" name="password" placeholder="wachtwoord" required>
-                    <input type="submit" name="submit" value="login">
+                    <input type="submit" name="loginP" value="login">
             </form>
         </div>
         <div class="terugKnop">

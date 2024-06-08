@@ -3,7 +3,11 @@ session_start();
 
 require_once ('../includes/db_connectie.php');
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
+if (!isset($_SESSION['username'])) {
+    header('Location: inloggenP.php');
+    exit();
+}
+// if (isset($_POST['username']) && isset($_POST['password'])) {
         
 //     function checkLogin($data) {
 //         $data = trim($data);
@@ -24,10 +28,10 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 //         $result = $verbinding->query($sql);
 //     }
 
-} else {
-    header('Location: inloggenP.php?error=1');
-    exit();
-}
+// } else {
+//     header('Location: inloggenP.php?error=1');
+//     exit();
+// }
 
 ?>
 <!DOCTYPE html>
@@ -50,7 +54,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         <a href="homeP.php" class="menuitem">Home</a>
         <a href="vluchtenP.php" class="menuitem">Vluchten</a>
         <a href="incheckenP.php" class="menuitem">Inchecken</a>
-        <a href="inloggenP.php" class="menuitem">Uitloggen</a>
+        <a href="../includes/uitloggen.php" class="menuitem">Uitloggen</a>
     </div>
 
     <main>

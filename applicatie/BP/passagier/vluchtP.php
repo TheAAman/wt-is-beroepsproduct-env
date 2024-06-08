@@ -1,3 +1,27 @@
+<?php
+session_start();
+
+include_once('../includes/db_connectie.php');
+
+function getVlucht() {
+    $db = maakVerbinding();
+
+    $sql = 'SELECT * FROM Vlucht WHERE bestemming = "New York";';
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($row) {
+        return $row;
+    }
+    return false;
+
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -6,19 +6,34 @@ include_once('../includes/db_connectie.php');
 function getVlucht() {
     $db = maakVerbinding();
 
-    $sql = 'SELECT * FROM Vlucht WHERE bestemming = "New York";';
+    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.gatecode, v.vertrektijd, v.maatschappijcode, v.max_aantal, m.naam AS maatschappij_naam, ib.balienummer
+            FROM Vlucht v
+            INNER JOIN Maatschappij m ON v.maatschappijcode = m.maatschappijcode
+            LEFT JOIN incheckenBestemming ib ON v.bestemming = ib.luchthavencode
+            WHERE v.vluchtnummer = :vluchtnummer';
     $stmt = $db->prepare($sql);
+    $vluchtnummer = "28761";
+    $stmt->bindParam(':vluchtnummer', $vluchtnummer);
     $stmt->execute();
 
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($row) {
-        return $row;
-    }
-    return false;
-
+    return $row;
 }
 
+$vluchtDetails = getVlucht();
+$vluchtenHtml = '';
+
+if (!empty($vluchtDetails)) {
+    $vluchtenHtml .= '<p><strong>Vertrektijd:</strong> ' . htmlspecialchars($vluchtDetails['vertrektijd']) . '</p>';
+    $vluchtenHtml .= '<p><strong>Vluchtnummer:</strong> ' . htmlspecialchars($vluchtDetails['vluchtnummer']) . '</p>';
+    $vluchtenHtml .= '<p><strong>Bestemming:</strong> ' . htmlspecialchars($vluchtDetails['bestemming']) . '</p>';
+    $vluchtenHtml .= '<p><strong>Balienummer:</strong> ' . htmlspecialchars($vluchtDetails['balienummer']) . '</p>';
+    $vluchtenHtml .= '<p><strong>Gatecode:</strong> ' . htmlspecialchars($vluchtDetails['gatecode']) . '</p>';
+    $vluchtenHtml .= '<p><strong>Maatschappij:</strong> ' . htmlspecialchars($vluchtDetails['maatschappij_naam']) . '</p>';
+    $vluchtenHtml .= '<p><strong>Max aantal passagiers:</strong> ' . htmlspecialchars($vluchtDetails['max_aantal']) . '</p>';
+    //Gevuldheid = (max_gewicht_pp*aantal ingecheckte passagiers)/max_totaalgewicht??
+}
 
 
 ?>
@@ -51,14 +66,7 @@ function getVlucht() {
                 <img src="../img/Steden/NY.jpg" alt="stadsfoto">
             </div>
             <div class="vluchtTekst">
-                <p><strong>Vertrektijd:</strong> 06:46:00</p>
-                <p><strong>Vluchtnummer:</strong> 27544</p>
-                <p><strong>Bestemming:</strong> New York City</p>
-                <p><strong>Balienummer:</strong> 7</p>
-                <p><strong>Gate:</strong> A</p>
-                <p><strong>Luchthaven:</strong> Luchthaven Schiphol</p>
-                <p><strong>Maatschappij:</strong> Amsterdam Airlines</p>
-                <p><strong>Passagiers:</strong> 243/ 350</p>
+                <?php echo $vluchtenHtml; ?>
             </div>
         </div>
     </main>

@@ -8,16 +8,18 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-function getVlucht() {
+function getVlucht($vluchtnummer) {
     $db = maakVerbinding();
 
-    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.gatecode, v.vertrektijd, v.maatschappijcode, v.max_aantal, m.naam AS maatschappij_naam, ib.balienummer
+    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.vertrektijd, COUNT(p.passagiernummer) AS aantal_passagiers, v.max_aantal, SUM(v.max_gewicht_pp) AS totaal_gewicht, v.max_totaalgewicht, m.naam AS maatschappij_naam, ib.balienummer, v.gatecode, v.maatschappijcode
             FROM Vlucht v
-            INNER JOIN Maatschappij m ON v.maatschappijcode = m.maatschappijcode
+            LEFT JOIN Passagier p ON v.vluchtnummer = p.vluchtnummer
+            LEFT JOIN Maatschappij m ON v.maatschappijcode = m.maatschappijcode
             LEFT JOIN incheckenBestemming ib ON v.bestemming = ib.luchthavencode
-            WHERE v.vluchtnummer = :vluchtnummer';
+            WHERE v.vluchtnummer LIKE :vluchtnummer
+            GROUP BY v.vluchtnummer, v.bestemming, v.vertrektijd, v.max_aantal, v.max_totaalgewicht, m.naam, ib.balienummer, v.gatecode, v.maatschappijcode;';
+
     $stmt = $db->prepare($sql);
-    $vluchtnummer = "28761";
     $stmt->bindParam(':vluchtnummer', $vluchtnummer);
     $stmt->execute();
 
@@ -26,7 +28,8 @@ function getVlucht() {
     return $row;
 }
 
-$vluchtDetails = getVlucht();
+$vluchtnummer = isset($_GET['vluchtnummer']) ? $_GET['vluchtnummer'] : '';
+$vluchtDetails = getVlucht($vluchtnummer);
 $vluchtenHtml = '';
 
 if (!empty($vluchtDetails)) {
@@ -36,8 +39,8 @@ if (!empty($vluchtDetails)) {
     $vluchtenHtml .= '<p><strong>Balienummer:</strong> ' . htmlspecialchars($vluchtDetails['balienummer']) . '</p>';
     $vluchtenHtml .= '<p><strong>Gatecode:</strong> ' . htmlspecialchars($vluchtDetails['gatecode']) . '</p>';
     $vluchtenHtml .= '<p><strong>Maatschappij:</strong> ' . htmlspecialchars($vluchtDetails['maatschappij_naam']) . '</p>';
-    $vluchtenHtml .= '<p><strong>Max aantal passagiers:</strong> ' . htmlspecialchars($vluchtDetails['max_aantal']) . '</p>';
-    //Gevuldheid = (max_gewicht_pp*aantal ingecheckte passagiers)/max_totaalgewicht??
+    $vluchtenHtml .= '<p><strong>Max aantal passagiers:</strong> ' . htmlspecialchars($vluchtDetails['aantal_passagiers']) . ' / ' . htmlspecialchars($vluchtDetails['max_aantal']) . '</a></td>';
+    $vluchtenHtml .= '<p><strong>Gewicht:</strong> ' . floor(htmlspecialchars($vluchtDetails['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vluchtDetails['max_totaalgewicht'])) . '</a></td>';
 }
 
 

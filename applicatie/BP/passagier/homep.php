@@ -56,7 +56,7 @@ if (!isset($_SESSION['username'])) {
             <div class="homepvlucht">
                 <h3>New York</h3>
                 <p>
-                    <a href="vluchtP.php"><img src="../img/Steden/NY.jpg" alt="stadsfoto"></a>
+                    <a href="vluchtP.php?vluchtnummer=28761"><img src="../img/Steden/NY.jpg" alt="stadsfoto"></a>
                 </p>
                 <p><strong>Vertrekt:</strong> 06:46:00</p>
                 <p><strong>Balie:</strong> 7</p>

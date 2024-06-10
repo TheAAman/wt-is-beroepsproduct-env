@@ -1,11 +1,44 @@
 <?php 
 session_start();
 
-require_once ('../includes/db_connectie.php');
+require_once('../includes/db_connectie.php');
 
 if (!isset($_SESSION['username'])) {
     header('Location: inloggenP.php');
     exit();
+}
+
+function getVluchten($vluchtnummer) {
+    $db = maakVerbinding();
+
+    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.vertrektijd, COUNT(p.passagiernummer) AS aantal_passagiers, v.max_aantal, SUM(v.max_gewicht_pp) AS totaal_gewicht, v.max_totaalgewicht
+            FROM Vlucht v
+            LEFT JOIN Passagier p ON v.vluchtnummer = p.vluchtnummer
+            WHERE v.vluchtnummer LIKE :vluchtnummer
+            GROUP BY v.vluchtnummer, v.bestemming, v.vertrektijd, v.max_aantal, v.max_totaalgewicht';
+    $stmt = $db->prepare($sql);
+    $vluchtnummer = "%$vluchtnummer%";
+    $stmt->bindParam(':vluchtnummer', $vluchtnummer);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$vluchtnummer = isset($_GET['Vluchtnummer']) ? $_GET['Vluchtnummer'] : '';
+$vluchten = getVluchten($vluchtnummer);
+
+$tableRows = '';
+
+if (count($vluchten) > 0) {
+    foreach ($vluchten as $vlucht) {
+        $tableRows .= '<tr>';
+        $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . htmlspecialchars($vlucht['vluchtnummer']) . '</a></td>';
+        $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . htmlspecialchars($vlucht['bestemming']) . '</a></td>';
+        $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . htmlspecialchars($vlucht['vertrektijd']) . '</a></td>';
+        $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) . '</a></td>';
+        $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . floor(htmlspecialchars($vlucht['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vlucht['max_totaalgewicht'])) . '</a></td>';
+        $tableRows .= '</tr>';
+    }
 }
 
 ?>
@@ -24,14 +57,14 @@ if (!isset($_SESSION['username'])) {
         <h1>Gelre airport</h1>
     </header>
 
-    <?php include_once'../includes/navP.php'; ?>
+    <?php include_once '../includes/navP.php'; ?>
 
     <main>
         <div class="zoekBalk">
-            <form action="vluchtenP.html" method="get">
+            <form action="vluchtenP.php" method="get">
                 <h3>Vluchtnummer:</h3>
                 <div class="balkBalk">
-                    <input class="zoekbalkBalk" type="number" name="Vluchtnummer" placeholder="Zoeken">
+                    <input class="zoekbalkBalk" type="number" name="Vluchtnummer" placeholder="Zoeken" value="<?= htmlspecialchars($vluchtnummer) ?>">
                 </div>
                 <div class="zoekKnopContainer">
                     <input class="zoekKnop" type="submit" value="Zoeken">
@@ -48,76 +81,7 @@ if (!isset($_SESSION['username'])) {
                     <th>Passagiers</th>
                     <th>Gewicht</th>
                 </tr>
-                <tr>
-                    <td><a href="vluchtP.html" class="vluchtenLink">28764</a></td>
-                    <td><a href="vluchtP.html" class="vluchtenLink">NYC</a></td>
-                    <td><a href="vluchtP.html" class="vluchtenLink">2023-10-19 / 07:12:00</a></td>
-                    <td>25 / 50</td>
-                    <td>800 /1080 kg (max 20 pp) </td>
-                </tr>
-                <tr>
-                    <td>28793</td>
-                    <td>AMS</td>
-                    <td>2023-10-16 / 14:23:00</td>
-                    <td>75 / 150</td>
-                    <td>800 /1080 kg (max 20 pp) </td>
-                </tr>
-                <tr>
-                    <td>28761</td>
-                    <td>ENS</td>
-                    <td>2023-10-11 / 06:46:00</td>
-                    <td>75 / 150</td>
-                    <td>900 /1080 kg (max 20 pp) </td>
-                </tr>
-                <tr>
-                    <td>28765</td>
-                    <td>LUX</td>
-                    <td>2023-10-11 / 08:41:00</td>
-                    <td>75 / 150</td>
-                    <td>60 /1000 kg (max 10 pp) </td>
-                </tr>
-                <tr>
-                    <td>28769</td>
-                    <td>AIP</td>
-                    <td>2023-10-12 / 14:11:00</td>
-                    <td>75 / 150</td>
-                    <td>854 /1235 kg (max 32 pp) </td>
-                </tr>
-                <tr>
-                    <td>28770</td>
-                    <td>GRQ</td>
-                    <td>2023-10-11 / 20:20:00</td>
-                    <td>75 / 150</td>
-                    <td>132 /765 kg (max 43 pp) </td>
-                </tr>
-                <tr>
-                    <td>28774</td>
-                    <td>LEY</td>
-                    <td>2023-10-13 / 05:10:00</td>
-                    <td>75 / 150</td>
-                    <td>312 /876 kg (max 9 pp) </td>
-                </tr>
-                <tr>
-                    <td>28789</td>
-                    <td>TEU</td>
-                    <td>2023-10-15 / 17:47:00</td>
-                    <td>75 / 150</td>
-                    <td>132 /1890 kg (max 40 pp) </td>
-                </tr>
-                <tr>
-                    <td>28793</td>
-                    <td>AMS</td>
-                    <td>2023-10-16 / 14:23:00</td>
-                    <td>75 / 150</td>
-                    <td>800 /1080 kg (max 20 pp) </td>
-                </tr>
-                <tr>
-                    <td>28779</td>
-                    <td>EIN</td>
-                    <td>2023-10-14 / 12:33:00</td>
-                    <td>75 / 150</td>
-                    <td>1200 /1500 kg (max 60 pp) </td>
-                </tr>
+                <?= $tableRows ?>
             </table>           
         </div>
     </main>

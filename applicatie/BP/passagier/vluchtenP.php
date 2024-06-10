@@ -32,7 +32,7 @@ $tableRows = '';
 if (count($vluchten) > 0) {
     foreach ($vluchten as $vlucht) {
         $tableRows .= '<tr>';
-        $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . htmlspecialchars($vlucht['vluchtnummer']) . '</a></td>';
+        $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vluchtnummer']) . '</a></td>';
         $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . htmlspecialchars($vlucht['bestemming']) . '</a></td>';
         $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . htmlspecialchars($vlucht['vertrektijd']) . '</a></td>';
         $tableRows .= '<td><a href="vluchtP.html" class="vluchtenLink">' . htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) . '</a></td>';

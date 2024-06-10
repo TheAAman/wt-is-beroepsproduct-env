@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+require_once ('../includes/db_connectie.php');
+
+if (!isset($_SESSION['balienummer'])) {
+    header('Location: inloggenM.php');
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +24,11 @@
         <h1>Gelre airport</h1>
     </header>
 
-    <div class="menunavigatie">
-        <a href="incheckenM.html" class="menuitem">Inchecken</a>
-        <a href="vluchtenM.html" class="menuitem">Vluchten</a>
-        <a href="passagierZoeken.html" class="menuitem">Passagiers</a>
-        <a href="inloggenM.html" class="menuitem">Uitloggen</a>
-    </div>
+    <?php include_once'../includes/navM.php'; ?>
 
     <main>
         <div class="passagierToevoegen">
-            <a href="passagierToevoegen.html">Passagier toevoegen</a>
+            <a href="passagierToevoegen.php">Passagier toevoegen</a>
         </div>
 
         <div class="belangrijkevluchtInfo">
@@ -40,11 +46,11 @@
                     <th>Inchecktijdstip</th>
                 </tr>
                 <tr>
-                    <td><a href="passagier.html" class="vluchtenLink">23454</a></td>
-                    <td><a href="passagier.html" class="vluchtenLink">Etezard</a></td>
-                    <td><a href="passagier.html" class="vluchtenLink">M</a></td>
-                    <td><a href="passagier.html" class="vluchtenLink">Ja</a></td>
-                    <td><a href="passagier.html" class="vluchtenLink">2023-10-11 / 06:15:00</a></td>
+                    <td><a href="passagier.php" class="vluchtenLink">23454</a></td>
+                    <td><a href="passagier.php" class="vluchtenLink">Etezard</a></td>
+                    <td><a href="passagier.php" class="vluchtenLink">M</a></td>
+                    <td><a href="passagier.php" class="vluchtenLink">Ja</a></td>
+                    <td><a href="passagier.php" class="vluchtenLink">2023-10-11 / 06:15:00</a></td>
                 </tr>
                 <tr>
                     <td>23452</td>
@@ -105,14 +111,14 @@
             </table>           
         </div>
         <div class="terugKnop">
-            <a href="vluchtenM.html">Terug</a>
+            <a href="vluchtenM.php">Terug</a>
         </div>
 
     </main>
 
     <footer>
         <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
+        <a href="../privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

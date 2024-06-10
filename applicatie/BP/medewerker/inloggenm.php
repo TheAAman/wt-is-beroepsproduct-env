@@ -1,7 +1,50 @@
 <?php
-    session_start();
+session_start();
 
-    include_once('../includes/db_connectie.php');
+include_once('../includes/db_connectie.php');
+
+$logged_in = false;
+
+function checkBalie ($balienummer, $password){ 
+    $db = maakVerbinding(); 
+    
+    $sql = 'SELECT * From Balie WHERE balienummer = :balienummer;'; 
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":balienummer", $balienummer);
+    $stmt->execute();
+  
+    $row = $stmt->fetch(PDO::FETCH_ASSOC); 
+  
+    if ($row) { 
+      $stored_password = $row['wachtwoord'];
+     
+    // if (password_verify($password, $stored_password)) {
+    if ($password === $stored_password){
+          return true; 
+        }
+    }
+    return false; 
+}
+
+if (isset($_POST['loginM'])){ 
+    $balienummer = $_POST['balienummer']; 
+    $password = $_POST['password']; 
+
+    if (checkBalie($balienummer, $password)){
+        $_SESSION['balienummer'] = $balienummer;
+        $logged_in = true;
+        
+        header('Location: incheckenM.php'); 
+        exit();
+    } else {
+        echo "Invalid balienummer or password"; 
+    }
+}
+
+if ($logged_in) {
+    header('Location: incheckenM.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,10 +66,10 @@
             <p>Vul hier uw inloggegevens in:</p>
         </div>
         <div class="inlogBlok">
-            <form action="incheckenM.php" method="post">
-                    <input type="int" name="balienummer" placeholder="balienummer" required>
+            <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
+                    <input type="number" name="balienummer" placeholder="balienummer" required>
                     <input type="password" name="password" placeholder="wachtwoord" required>
-                    <input type="submit" name="submit" value="login">
+                    <input type="submit" name="loginM" value="login">
             </form>
         </div>
         <div class="terugKnop">
@@ -36,7 +79,7 @@
 
     <footer>
         <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
+        <a href="../privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

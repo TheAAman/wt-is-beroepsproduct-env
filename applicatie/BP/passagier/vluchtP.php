@@ -1,7 +1,12 @@
 <?php
 session_start();
 
-include_once('../includes/db_connectie.php');
+require_once ('../includes/db_connectie.php');
+
+if (!isset($_SESSION['username'])) {
+    header('Location: inloggenP.php');
+    exit();
+}
 
 function getVlucht() {
     $db = maakVerbinding();
@@ -52,12 +57,7 @@ if (!empty($vluchtDetails)) {
         <h1>Gelre airport</h1>
     </header>
 
-    <div class="menunavigatie">
-        <a href="homeP.html" class="menuitem">Home</a>
-        <a href="vluchtenP.html" class="menuitem">Vluchten</a>
-        <a href="incheckenP.html" class="menuitem">Inchecken</a>
-        <a href="inloggenP.html" class="menuitem">Uitloggen</a>
-    </div>
+    <?php include_once'../includes/navP.php'; ?>
 
     <main>
         <div class="vlucht">

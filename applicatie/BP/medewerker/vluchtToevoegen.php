@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+require_once ('../includes/db_connectie.php');
+
+if (!isset($_SESSION['balienummer'])) {
+    header('Location: inloggenM.php');
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,20 +24,15 @@
         <h1>Gelre airport</h1>
     </header>
 
-    <div class="menunavigatie">
-        <a href="incheckenM.html" class="menuitem">Inchecken</a>
-        <a href="vluchtenM.html" class="menuitem">Vluchten</a>
-        <a href="passagierZoeken.html" class="menuitem">Passagiers</a>
-        <a href="inloggenM.html" class="menuitem">Uitloggen</a>
-    </div>
+    <?php include_once'../includes/navM.php'; ?>
 
     <main>
         <div class="form-field">
-            <a href="vluchtenM.html">Terug</a>
+            <a href="vluchtenM.php">Terug</a>
         </div>
 
         <div class="toevoegenVluchtForm">
-            <form action="vluchtenM.html" method="post">
+            <form action="vluchtenM.php" method="post">
                 <div class="form-field">
                     <label for="Vluchtnummer">Vluchtnummer</label>
                     <input type="number" name="Vnummer" id="Vluchtnummer" placeholder="###" required>
@@ -97,7 +103,7 @@
 
     <footer>
         <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
+        <a href="../privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

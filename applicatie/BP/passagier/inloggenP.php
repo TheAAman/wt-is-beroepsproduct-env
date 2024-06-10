@@ -41,6 +41,10 @@ if (isset($_POST['loginP'])){
     }
 }
 
+if ($logged_in) {
+    header('Location: homep.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,12 +57,7 @@ if (isset($_POST['loginP'])){
     <title>Inloggen Passagier</title>
 </head>
 <body>
-    <?php
-        if ($logged_in) {
-            header('Location: homep.php');
-            exit();
-        }
-    ?>
+
     <header>
         <h1>Gelre airport</h1>
     </header>
@@ -75,7 +74,7 @@ if (isset($_POST['loginP'])){
             </form>
         </div>
         <div class="terugKnop">
-            <a href="../index.html" class="terugKnopButton">Terug</a>
+            <a href="../index.php" class="terugKnopButton">Terug</a>
         </div>
     </main>
 

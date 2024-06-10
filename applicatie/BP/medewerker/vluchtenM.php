@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+require_once ('../includes/db_connectie.php');
+
+if (!isset($_SESSION['balienummer'])) {
+    header('Location: inloggenM.php');
+    exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,20 +24,15 @@
         <h1>Gelre airport</h1>
     </header>
 
-    <div class="menunavigatie">
-        <a href="incheckenM.html" class="menuitem">Inchecken</a>
-        <a href="vluchtenM.html" class="menuitem">Vluchten</a>
-        <a href="passagierZoeken.html" class="menuitem">Passagiers</a>
-        <a href="inloggenM.html" class="menuitem">Uitloggen</a>
-    </div>
+    <?php include_once'../includes/navM.php'; ?>
 
     <main>
         <div class="toevoegenVlucht">
-            <a href="vluchtToevoegen.html">Toevoegen</a>
+            <a href="vluchtToevoegen.php">Toevoegen</a>
         </div>
 
         <div class="zoekBalk">
-            <form action="vluchtenM.html" method="get">
+            <form action="vluchtenM.php" method="get">
                 <h3>Vluchtnummer:</h3>
                 <div class="balkBalk">
                     <input class="zoekbalkBalk" type="number" name="Vluchtnummer" placeholder="Zoeken">
@@ -47,10 +53,10 @@
                     <th>Gewicht</th>
                 </tr>
                 <tr>
-                    <td><a href="vluchtM.html" class="vluchtenLink">28764</a></td>
-                    <td><a href="vluchtM.html" class="vluchtenLink">NYC</a></td>
-                    <td><a href="vluchtM.html" class="vluchtenLink">2023-10-19 / 07:12:00</a></td>
-                    <td><a href="passagiers.html" class="vluchtenLink">25 / 50</a></td>
+                    <td><a href="vluchtM.php" class="vluchtenLink">28764</a></td>
+                    <td><a href="vluchtM.php" class="vluchtenLink">NYC</a></td>
+                    <td><a href="vluchtM.php" class="vluchtenLink">2023-10-19 / 07:12:00</a></td>
+                    <td><a href="passagiers.php" class="vluchtenLink">25 / 50</a></td>
                     <td>800 /1080 kg (max 20 pp) </td>
                 </tr>
                 <tr>
@@ -122,7 +128,7 @@
 
     <footer>
         <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
+        <a href="../privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

@@ -13,12 +13,7 @@
         <h1>Gelre airport</h1>
     </header>
 
-    <div class="menunavigatie">
-        <a href="homeP.php" class="menuitem">Home</a>
-        <a href="vluchtenP.php" class="menuitem">Vluchten</a>
-        <a href="incheckenP.php" class="menuitem">Inchecken</a>
-        <a href="inloggenP.php" class="menuitem">Uitloggen</a>
-    </div>
+    <?php include_once'../includes/navP.php'; ?>
 
     <main>
         <div class="incheckVelden">

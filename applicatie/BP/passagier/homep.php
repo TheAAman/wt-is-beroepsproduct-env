@@ -49,14 +49,7 @@ if (!isset($_SESSION['username'])) {
     <header>
         <h1>Gelre airport</h1>
     </header>
-
-    <div class="menunavigatie">
-        <a href="homeP.php" class="menuitem">Home</a>
-        <a href="vluchtenP.php" class="menuitem">Vluchten</a>
-        <a href="incheckenP.php" class="menuitem">Inchecken</a>
-        <a href="../includes/uitloggen.php" class="menuitem">Uitloggen</a>
-    </div>
-
+    <?php include_once'../includes/navP.php'; ?>
     <main>
         <h2>Vluchten vandaag:</h2>
         <div class="homepgrid">

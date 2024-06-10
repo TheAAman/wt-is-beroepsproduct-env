@@ -1,46 +1,22 @@
 <?php
 session_start();
 
-include_once('../includes/db_connectie.php');
+require_once ('../includes/db_connectie.php');
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
-        
-    function checkLogin($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars ($data);
-        return $data;
-    }
-
-    $username = checkLogin($_POST['username']);
-    $password = checkLogin($_POST['password']);
-
-    if (empty($username) || empty($password)) {
-        header('Location: inloggenP.php?error=1');
-        exit();
-    } else {
-        $sql = "SELECT * FROM Passagier WHERE naam = '$username' AND wachtwoord = '$password'";	
-    
-        $result = $verbinding->query($sql);
-    }
-
-} else {
-    header('Location: inloggenP.php?error=1');
+if (!isset($_SESSION['balienummer'])) {
+    header('Location: inloggenM.php');
     exit();
 }
 
-if isset ($_POST['submit']) {
+// if isset ($_POST['submit']) {
 
-    $Pname = $_POST['Pname'];
-    $Vnummer = $_POST['Vnummer'];
-    $Bnummer = $_POST['Bnummer'];
-    $Pnummer = $_POST['Pnummer'];
-    $Geslacht = $_POST['gender']
+//     $Pname = $_POST['Pname'];
+//     $Vnummer = $_POST['Vnummer'];
+//     $Bnummer = $_POST['Bnummer'];
+//     $Pnummer = $_POST['Pnummer'];
+//     $Geslacht = $_POST['gender'];
 
-} else {
-    header('Location: inloggenM.php?error=1');
-    exit();
-}
+// } 
 
 ?>
 <!DOCTYPE html>
@@ -58,12 +34,7 @@ if isset ($_POST['submit']) {
         <h1>Gelre airport</h1>
     </header>
 
-    <div class="menunavigatie">
-        <a href="incheckenM.php" class="menuitem">Inchecken</a>
-        <a href="vluchtenM.php" class="menuitem">Vluchten</a>
-        <a href="passagierZoeken.php" class="menuitem">Passagiers</a>
-        <a href="inloggenM.php" class="menuitem">Uitloggen</a>
-    </div>
+    <?php include_once'../includes/navM.php'; ?>
     
     <main>
         <div class="incheckVelden">
@@ -161,7 +132,7 @@ if isset ($_POST['submit']) {
 
     <footer>
         <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
+        <a href="../privacy.php">Privacy Policy</a> 
         &copy;2023 GAAF productions
     </footer>
 </body>

@@ -2,31 +2,9 @@
 session_start();
 
 require_once ('../includes/db_connectie.php');
+require_once ('../includes/functies.php');
 
-if (!isset($_SESSION['username'])) {
-    header('Location: inloggenP.php');
-    exit();
-}
-
-function getVlucht($vluchtnummer) {
-    $db = maakVerbinding();
-
-    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.vertrektijd, COUNT(p.passagiernummer) AS aantal_passagiers, v.max_aantal, SUM(v.max_gewicht_pp) AS totaal_gewicht, v.max_totaalgewicht, m.naam AS maatschappij_naam, ib.balienummer, v.gatecode, v.maatschappijcode
-            FROM Vlucht v
-            LEFT JOIN Passagier p ON v.vluchtnummer = p.vluchtnummer
-            LEFT JOIN Maatschappij m ON v.maatschappijcode = m.maatschappijcode
-            LEFT JOIN incheckenBestemming ib ON v.bestemming = ib.luchthavencode
-            WHERE v.vluchtnummer LIKE :vluchtnummer
-            GROUP BY v.vluchtnummer, v.bestemming, v.vertrektijd, v.max_aantal, v.max_totaalgewicht, m.naam, ib.balienummer, v.gatecode, v.maatschappijcode;';
-
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':vluchtnummer', $vluchtnummer);
-    $stmt->execute();
-
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $row;
-}
+checkSessie();
 
 $vluchtnummer = isset($_GET['vluchtnummer']) ? $_GET['vluchtnummer'] : '';
 $vluchtDetails = getVlucht($vluchtnummer);
@@ -43,7 +21,10 @@ if (!empty($vluchtDetails)) {
     $vluchtenHtml .= '<p><strong>Gewicht:</strong> ' . floor(htmlspecialchars($vluchtDetails['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vluchtDetails['max_totaalgewicht'])) . '</a></td>';
 }
 
-
+if ($vluchtDetails) {
+    $vliegveld = $vluchtDetails['bestemming'];
+    $land = omzettenLandVliegveld($vliegveld);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +45,7 @@ if (!empty($vluchtDetails)) {
 
     <main>
         <div class="vlucht">
-            <div class="vluchtBestemming"><h2>New York</h2></div>
+            <div class="vluchtBestemming"><h2><?php echo htmlspecialchars($land) ?></h2></div>
             <div class="vluchtImg">
                 <img src="../img/Steden/NY.jpg" alt="stadsfoto">
             </div>

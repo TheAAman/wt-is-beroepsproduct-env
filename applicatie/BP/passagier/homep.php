@@ -8,29 +8,41 @@ checkSessie();
 
 $username = $_SESSION['username'];
 
-function getVluchtNummer($username) {
+function getVluchtNummers($username) {
     $db = maakVerbinding();
 
-    $sql = 'SELECT TOP 1 vluchtnummer FROM Passagier WHERE naam = :username';
+    $sql = 'SELECT DISTINCT vluchtnummer FROM Passagier WHERE naam = :username';
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    if ($row) {
-        return $row['vluchtnummer'];
-    } else {
-        return null;
-    }
+    return $stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
-$vluchtnummer = getVluchtNummer($username);
-$vluchtDetails = getVlucht($vluchtnummer);
+function getHomeVlucht($vluchtnummer) {
+    $db = maakVerbinding();
 
-if ($vluchtDetails) {
-    $vliegveld = $vluchtDetails['bestemming'];
-    $land = omzettenLandVliegveld($vliegveld);
+    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.vertrektijd, COUNT(p.passagiernummer) AS aantal_passagiers, v.max_aantal, SUM(v.max_gewicht_pp) AS totaal_gewicht, v.max_totaalgewicht, m.naam AS maatschappij_naam, ib.balienummer, v.gatecode, v.maatschappijcode
+            FROM Vlucht v
+            LEFT JOIN Passagier p ON v.vluchtnummer = p.vluchtnummer
+            LEFT JOIN Maatschappij m ON v.maatschappijcode = m.maatschappijcode
+            LEFT JOIN incheckenBestemming ib ON v.bestemming = ib.luchthavencode
+            WHERE v.vluchtnummer = :vluchtnummer
+            GROUP BY v.vluchtnummer, v.bestemming, v.vertrektijd, v.max_aantal, v.max_totaalgewicht, m.naam, ib.balienummer, v.gatecode, v.maatschappijcode;';
+
+    $stmt = $db->prepare($sql);
+    
+    $stmt->bindParam(':vluchtnummer', $vluchtnummer);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+$vluchtnummers = getVluchtNummers($username);
+$vluchtDetailsArray = [];
+
+foreach ($vluchtnummers as $vluchtnummer) {
+    $vluchtDetailsArray[] = getHomeVlucht($vluchtnummer);
 }
 
 ?>
@@ -53,15 +65,17 @@ if ($vluchtDetails) {
     <main>
         <h2>Mijn vluchten:</h2>
         <div class="homepgrid">
+            <?php foreach ($vluchtDetailsArray as $vluchtDetails): ?>
             <div class="homepvlucht">
-                <h3><?php echo htmlspecialchars($land) ?></h3>
+                <h3><?php echo omzettenLandVliegveld($vluchtDetails['bestemming']); ?></h3>
                 <p>
-                    <a href="vluchtP.php?vluchtnummer=<?php echo htmlspecialchars($vluchtnummer); ?>"><img src="../img/Steden/NY.jpg" alt="stadsfoto"></a>
+                    <a href="vluchtP.php?vluchtnummer=<?php echo htmlspecialchars($vluchtDetails['vluchtnummer']); ?>"><img src="../img/Steden/NY.jpg" alt="stadsfoto"></a>
                 </p>
                 <p><strong>Vertrekt:</strong> <?php echo htmlspecialchars($vluchtDetails['vertrektijd']); ?></p>
                 <p><strong>Balie:</strong> <?php echo htmlspecialchars($vluchtDetails['balienummer']); ?></p>
                 <p><strong>Vluchtnummer:</strong> <?php echo htmlspecialchars($vluchtDetails['vluchtnummer']); ?></p>
-            </div>            
+            </div>
+            <?php endforeach; ?>
         </div>
     </main>
 

@@ -6,41 +6,32 @@ require_once ('../includes/functies.php');
 
 checkSessie();
 
-// function checkInP(){
-//     $db = maakVerbinding();
-
-//     $sql = 'UPDATE Table Passagier;';
-// }
-
-function checkInB($passagiernummerB, $gewichtB){
+function checkInB($passagiernummerB, $objectvolgnummer, $gewichtB){
     $db = maakVerbinding();
 
     $sql = 'INSERT INTO Bagageobject (passagiernummer, objectvolgnummer, gewicht)
-            VALUES (:passagiernummer,:objectvolgnummer, :gewichtB);';
+            VALUES (:passagiernummer, :objectvolgnummer, :gewichtB)';
 
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':passagiernummer', $passagiernummerB);
     $stmt->bindParam(':objectvolgnummer', $objectvolgnummer);
     $stmt->bindParam(':gewichtB', $gewichtB);
     $stmt->execute();
+}
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (isset($_POST['Pnummer'])) {
-            $passagiernummer = $_POST['Pnummer'];
-    
-            for ($i = 1; $i <= 3; $i++) {
-                $gewichtField = "gewichtB" . $i;
-                $gewicht = isset($_POST[$gewichtField]) ? $_POST[$gewichtField] : null;
-                if ($gewicht !== null && $gewicht !== '') {
-                    checkInB($passagiernummer, $i, $gewicht);
-                }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['Pnummer'])) {
+        $passagiernummer = $_POST['Pnummer'];
+
+        for ($i = 1; $i <= 3; $i++) {
+            $gewichtField = "gewichtB" . $i;
+            $gewicht = isset($_POST[$gewichtField]) ? $_POST[$gewichtField] : null;
+            if ($gewicht !== null && $gewicht !== '') {
+                checkInB($passagiernummer, $i, $gewicht);
             }
         }
     }
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -123,7 +114,7 @@ function checkInB($passagiernummerB, $gewichtB){
                     <div class="form-field">
                         <label for="Gewicht1">Koffer 1</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB1" id="Gewicht1" placeholder="###">
+                            <input type="number" name="gewichtB1" id="Gewicht1" placeholder="###" step="0.01">
                             <span>Gram</span>
                         </div>
                     </div>
@@ -131,7 +122,7 @@ function checkInB($passagiernummerB, $gewichtB){
                     <div class="form-field">
                         <label for="Gewicht2">Koffer 2</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB2" id="Gewicht2" placeholder="Vul in als nodig">
+                            <input type="number" name="gewichtB2" id="Gewicht2" placeholder="Vul in als nodig" step="0.01">
                             <span>Gram</span>
                         </div>
                     </div>
@@ -139,7 +130,7 @@ function checkInB($passagiernummerB, $gewichtB){
                     <div class="form-field">
                         <label for="Gewicht3">Koffer 3</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB3" id="Gewicht3" placeholder="Vul in als nodig">
+                            <input type="number" name="gewichtB3" id="Gewicht3" placeholder="Vul in als nodig" step="0.01">
                             <span>Gram</span>
                         </div> 
                     </div>

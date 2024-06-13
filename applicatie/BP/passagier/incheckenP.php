@@ -6,24 +6,23 @@ require_once ('../includes/functies.php');
 
 checkSessie();
 
-function checkInP(){
+// function checkInP(){
+//     $db = maakVerbinding();
+
+//     $sql = 'UPDATE Table Passagier;';
+// }
+
+function checkInB($passagiernummerB, $gewichtB){
     $db = maakVerbinding();
 
-    $sql = 'UPDATE Table Passagier;';
-}
-
-function checkInB(){
-    $db = maakVerbinding();
-
-    $sql = 'UPDATE Bagageobject
-            SET passagiernummer = :passagiernummer, gewicht = :gewichtB;';
+    $sql = 'INSERT INTO Bagageobject (passagiernummer, gewicht)
+            VALUES (:passagiernummer, :gewichtB);';
 
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':passagiernummer', $passagiernummer);
+    $stmt->bindParam(':passagiernummer', $passagiernummerB);
     $stmt->bindParam(':gewichtB', $gewichtB);
     $stmt->execute();
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -46,7 +45,7 @@ function checkInB(){
     <main>
         <div class="incheckVelden">
             <div class="incheckveldP">
-                <form action="incheckenP.html" method="POST">
+                <form action="incheckenP.php" method="POST">
                     <div class="titelincheckFormulier">
                     <h2>Inchecken</h2>
                     </div>
@@ -90,7 +89,7 @@ function checkInB(){
             </div>
 
             <div class="incheckveldB">
-                <form action="inchecken.html" method="POST">
+                <form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
                     <div class="titelincheckFormulier">
                         <h2>Bagage</h2>
                     </div>
@@ -107,7 +106,7 @@ function checkInB(){
                     <div class="form-field">
                         <label for="Gewicht1">Koffer 1</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB" id="Gewicht1" placeholder="###">
+                            <input type="number" name="gewichtB1" id="Gewicht1" placeholder="###" step="0.01">
                             <span>Gram</span>
                         </div>
                     </div>
@@ -115,7 +114,7 @@ function checkInB(){
                     <div class="form-field">
                         <label for="Gewicht2">Koffer 2</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB" id="Gewicht2" placeholder="Vul in als nodig">
+                            <input type="number" name="gewichtB2" id="Gewicht2" placeholder="Vul in als nodig" step="0.01">
                             <span>Gram</span>
                         </div>
                     </div>
@@ -123,7 +122,7 @@ function checkInB(){
                     <div class="form-field">
                         <label for="Gewicht3">Koffer 3</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB" id="Gewicht3" placeholder="Vul in als nodig">
+                            <input type="number" name="gewichtB3" id="Gewicht3" placeholder="Vul in als nodig" step="0.01">
                             <span>Gram</span>
                         </div> 
                     </div>

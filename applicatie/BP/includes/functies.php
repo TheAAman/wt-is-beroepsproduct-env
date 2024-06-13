@@ -62,3 +62,27 @@ function omzettenLandVliegveld($vliegveld){ //omzetten van vluchthaven naar stad
 
     return $land;
 }
+
+function checkInB() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['Pnummer'])) {
+            $passagiernummer = $_POST['Pnummer'];
+            $db = maakVerbinding();
+
+            $sql = 'INSERT INTO Bagageobject (passagiernummer, objectvolgnummer, gewicht)
+                    VALUES (:passagiernummer, :objectvolgnummer, :gewichtB)';
+            $stmt = $db->prepare($sql);
+
+            for ($i = 1; $i <= 3; $i++) {
+                $gewichtVeld = "gewichtB" . $i;
+                $gewicht = isset($_POST[$gewichtVeld]) ? $_POST[$gewichtVeld] : null;
+                if ($gewicht !== null && $gewicht !== '') {
+                    $stmt->bindParam(':passagiernummer', $passagiernummer);
+                    $stmt->bindParam(':objectvolgnummer', $i);
+                    $stmt->bindParam(':gewichtB', $gewicht);
+                    $stmt->execute();
+                }
+            }
+        }
+    }
+}

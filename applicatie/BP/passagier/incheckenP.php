@@ -6,32 +6,31 @@ require_once ('../includes/functies.php');
 
 checkSessie();
 
-function checkInB($passagiernummerB, $objectvolgnummer, $gewichtB){
-    $db = maakVerbinding();
+function checkInP() {
+    if (isset($_POST['inchecken'])) {
+        $db = maakVerbinding();
 
-    $sql = 'INSERT INTO Bagageobject (passagiernummer, objectvolgnummer, gewicht)
-            VALUES (:passagiernummer, :objectvolgnummer, :gewichtB)';
+        $Pname = $_POST['Pname'];
+        $Vnummer = $_POST['Vnummer'];
+        $Bnummer = $_POST['Bnummer'];
+        $Pnummer = $_POST['Pnummer'];
+        $gender = $_POST['gender'];
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':passagiernummer', $passagiernummerB);
-    $stmt->bindParam(':objectvolgnummer', $objectvolgnummer);
-    $stmt->bindParam(':gewichtB', $gewichtB);
-    $stmt->execute();
-}
+        $sql = 'INSERT INTO Passagier (passagiernummer, vluchtnummer, balienummer, passagiernaam, geslacht)
+                VALUES (:passagiernummer, :vluchtnummer, :balienummer, :passagiernaam, :geslacht)';
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':passagiernummer', $Pnummer);
+        $stmt->bindParam(':vluchtnummer', $Vnummer);
+        $stmt->bindParam(':balienummer', $Bnummer);
+        $stmt->bindParam(':passagiernaam', $Pname);
+        $stmt->bindParam(':geslacht', $gender);
+        $stmt->execute();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['Pnummer'])) {
-        $passagiernummer = $_POST['Pnummer'];
-
-        for ($i = 1; $i <= 3; $i++) {
-            $gewichtField = "gewichtB" . $i;
-            $gewicht = isset($_POST[$gewichtField]) ? $_POST[$gewichtField] : null;
-            if ($gewicht !== null && $gewicht !== '') {
-                checkInB($passagiernummer, $i, $gewicht);
-            }
-        }
     }
 }
+
+checkInP();
+checkInB();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <main>
         <div class="incheckVelden">
             <div class="incheckveldP">
-                <form action="incheckenP.php" method="POST">
+                <form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
                     <div class="titelincheckFormulier">
                     <h2>Inchecken</h2>
                     </div>

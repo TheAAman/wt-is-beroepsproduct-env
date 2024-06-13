@@ -45,6 +45,25 @@ foreach ($vluchtnummers as $vluchtnummer) {
     $vluchtDetailsArray[] = getHomeVlucht($vluchtnummer);
 }
 
+function homePvluchten($vluchtDetailsArray) {
+    $output = '';
+    foreach ($vluchtDetailsArray as $vluchtDetails) {
+        $output .= '
+        <div class="homepvlucht">
+            <h3>' . omzettenLandVliegveld($vluchtDetails['bestemming']) . '</h3>
+            <div class="vluchtImg">
+                <a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vluchtDetails['vluchtnummer']) . '">
+                    <img src="../img/plane.jpg" alt="vliegtuig">
+                </a>
+            </div>
+            <p><strong>Vertrekt:</strong> ' . htmlspecialchars($vluchtDetails['vertrektijd']) . '</p>
+            <p><strong>Balie:</strong> ' . htmlspecialchars($vluchtDetails['balienummer']) . '</p>
+            <p><strong>Vluchtnummer:</strong> ' . htmlspecialchars($vluchtDetails['vluchtnummer']) . '</p>
+        </div>';
+    }
+    return $output;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,17 +84,7 @@ foreach ($vluchtnummers as $vluchtnummer) {
     <main>
         <h2>Mijn vluchten:</h2>
         <div class="homepgrid">
-            <?php foreach ($vluchtDetailsArray as $vluchtDetails): ?>
-            <div class="homepvlucht">
-                <h3><?php echo omzettenLandVliegveld($vluchtDetails['bestemming']); ?></h3>
-                <p>
-                    <a href="vluchtP.php?vluchtnummer=<?php echo htmlspecialchars($vluchtDetails['vluchtnummer']); ?>"><img src="../img/Steden/NY.jpg" alt="stadsfoto"></a>
-                </p>
-                <p><strong>Vertrekt:</strong> <?php echo htmlspecialchars($vluchtDetails['vertrektijd']); ?></p>
-                <p><strong>Balie:</strong> <?php echo htmlspecialchars($vluchtDetails['balienummer']); ?></p>
-                <p><strong>Vluchtnummer:</strong> <?php echo htmlspecialchars($vluchtDetails['vluchtnummer']); ?></p>
-            </div>
-            <?php endforeach; ?>
+            <?= homePvluchten($vluchtDetailsArray) ?>
         </div>
     </main>
 

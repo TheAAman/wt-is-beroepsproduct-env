@@ -1,3 +1,31 @@
+<?php
+session_start();
+
+require_once ('../includes/db_connectie.php');
+require_once ('../includes/functies.php');
+
+checkSessie();
+
+function checkInP(){
+    $db = maakVerbinding();
+
+    $sql = 'UPDATE Table Passagier;';
+}
+
+function checkInB(){
+    $db = maakVerbinding();
+
+    $sql = 'UPDATE Bagageobject
+            SET passagiernummer = :passagiernummer, gewicht = :gewichtB;';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':passagiernummer', $passagiernummer);
+    $stmt->bindParam(':gewichtB', $gewichtB);
+    $stmt->execute();
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +41,7 @@
         <h1>Gelre airport</h1>
     </header>
 
-    <?php include_once'../includes/navP.php'; ?>
+    <?php include_once '../includes/navP.php'; ?>
 
     <main>
         <div class="incheckVelden">
@@ -109,10 +137,6 @@
         </div>
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.php">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

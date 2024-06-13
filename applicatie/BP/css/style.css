@@ -185,7 +185,16 @@ footer {
 }
 
 .vluchtImg {
+    width: 100%; /* Ensure the image container takes full width of its grid cell */
+    max-width: 600px; /* Optional: Limit the maximum width of the image container */
     grid-row-start: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.vluchtImg img {
+    max-width: 100%; /* Ensure the image scales within its container */
+    height: auto; /* Maintain the aspect ratio */
 }
 
 .vluchtTekst {

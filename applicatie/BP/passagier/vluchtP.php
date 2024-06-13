@@ -47,7 +47,7 @@ if ($vluchtDetails) {
         <div class="vlucht">
             <div class="vluchtBestemming"><h2><?php echo htmlspecialchars($land) ?></h2></div>
             <div class="vluchtImg">
-                <img src="../img/Steden/NY.jpg" alt="stadsfoto">
+                <img src="../img/plane.jpg" alt="vliegtuig">
             </div>
             <div class="vluchtTekst">
                 <?php echo $vluchtenHtml; ?>
@@ -55,10 +55,6 @@ if ($vluchtDetails) {
         </div>
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.php">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

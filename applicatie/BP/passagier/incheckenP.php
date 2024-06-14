@@ -6,29 +6,6 @@ require_once ('../includes/functies.php');
 
 checkSessie();
 
-function checkInP() {
-    if (isset($_POST['inchecken'])) {
-        $db = maakVerbinding();
-
-        $Pname = $_POST['Pname'];
-        $Vnummer = $_POST['Vnummer'];
-        $Bnummer = $_POST['Bnummer'];
-        $Pnummer = $_POST['Pnummer'];
-        $gender = $_POST['gender'];
-
-        $sql = 'INSERT INTO Passagier (passagiernummer, vluchtnummer, balienummer, passagiernaam, geslacht)
-                VALUES (:passagiernummer, :vluchtnummer, :balienummer, :passagiernaam, :geslacht)';
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':passagiernummer', $Pnummer);
-        $stmt->bindParam(':vluchtnummer', $Vnummer);
-        $stmt->bindParam(':balienummer', $Bnummer);
-        $stmt->bindParam(':passagiernaam', $Pname);
-        $stmt->bindParam(':geslacht', $gender);
-        $stmt->execute();
-
-    }
-}
-
 checkInP();
 checkInB();
 ?>

@@ -7,24 +7,9 @@ require_once ('../includes/functies.php');
 checkSessie();
 
 $vluchtnummer = isset($_GET['vluchtnummer']) ? $_GET['vluchtnummer'] : '';
-$vluchtDetails = getVlucht($vluchtnummer);
-$vluchtenHtml = '';
 
-if (!empty($vluchtDetails)) {
-    $vluchtenHtml .= '<p><strong>Vertrektijd:</strong> ' . htmlspecialchars($vluchtDetails['vertrektijd']) . '</p>';
-    $vluchtenHtml .= '<p><strong>Vluchtnummer:</strong> ' . htmlspecialchars($vluchtDetails['vluchtnummer']) . '</p>';
-    $vluchtenHtml .= '<p><strong>Bestemming:</strong> ' . htmlspecialchars($vluchtDetails['bestemming']) . '</p>';
-    $vluchtenHtml .= '<p><strong>Balienummer:</strong> ' . htmlspecialchars($vluchtDetails['balienummer']) . '</p>';
-    $vluchtenHtml .= '<p><strong>Gatecode:</strong> ' . htmlspecialchars($vluchtDetails['gatecode']) . '</p>';
-    $vluchtenHtml .= '<p><strong>Maatschappij:</strong> ' . htmlspecialchars($vluchtDetails['maatschappij_naam']) . '</p>';
-    $vluchtenHtml .= '<p><strong>Max aantal passagiers:</strong> ' . htmlspecialchars($vluchtDetails['aantal_passagiers']) . ' / ' . htmlspecialchars($vluchtDetails['max_aantal']) . '</a></td>';
-    $vluchtenHtml .= '<p><strong>Gewicht:</strong> ' . floor(htmlspecialchars($vluchtDetails['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vluchtDetails['max_totaalgewicht'])) . '</a></td>';
-}
+$land = vluchtNaarLand($vluchtnummer);
 
-if ($vluchtDetails) {
-    $vliegveld = $vluchtDetails['bestemming'];
-    $land = omzettenLandVliegveld($vliegveld);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,12 +30,12 @@ if ($vluchtDetails) {
 
     <main>
         <div class="vlucht">
-            <div class="vluchtBestemming"><h2><?php echo htmlspecialchars($land) ?></h2></div>
+            <div class="vluchtBestemming"><h2><?php echo $land ?></h2></div>
             <div class="vluchtImg">
                 <img src="../img/plane.jpg" alt="vliegtuig">
             </div>
             <div class="vluchtTekst">
-                <?php echo $vluchtenHtml; ?>
+            <?php echo vluchtNaarHtmlTabel($vluchtnummer); ?>
             </div>
         </div>
     </main>

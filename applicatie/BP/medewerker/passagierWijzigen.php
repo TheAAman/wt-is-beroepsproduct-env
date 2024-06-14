@@ -2,10 +2,33 @@
 session_start();
 
 require_once ('../includes/db_connectie.php');
+require_once ('../includes/functies.php');
 
-if (!isset($_SESSION['balienummer'])) {
-    header('Location: inloggenM.php');
-    exit();
+checkSessie();
+
+function wijzigP () {
+    $db = maakVerbinding();
+
+    if (isset($_POST['Opslaan'])) {
+        $Pnummer = $_POST['Pnummer'];
+        $Pnaam = $_POST['Pnaam'];
+        $Pgeslacht = $_POST['Pgeslacht'];
+        $Vnummer = $_POST['Vnummer'];
+        $Vbalie = $_POST['Vbalie'];
+        $Pstoel = $_POST['Pstoel'];
+        $Ptijd = $_POST['Ptijd'];
+
+        $sql = 'UPDATE Passagier SET naam = :Pnaam, geslacht = :Pgeslacht, vluchtnummer = :Vnummer, balienummer = :Vbalie, stoel = :Pstoel, inchecktijd = :Ptijd WHERE passagiernummer = :Pnummer;';
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':Pnummer', $Pnummer);
+        $stmt->bindParam(':Pnaam', $Pnaam);
+        $stmt->bindParam(':Pgeslacht', $Pgeslacht);
+        $stmt->bindParam(':Vnummer', $Vnummer);
+        $stmt->bindParam(':Vbalie', $Vbalie);
+        $stmt->bindParam(':Pstoel', $Pstoel);
+        $stmt->bindParam(':Ptijd', $Ptijd);
+        $stmt->execute();
+    }
 }
 
 ?>
@@ -79,10 +102,6 @@ if (!isset($_SESSION['balienummer'])) {
         </form>
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

@@ -2,10 +2,33 @@
 session_start();
 
 require_once ('../includes/db_connectie.php');
+require_once ('../includes/functies.php');
 
-if (!isset($_SESSION['balienummer'])) {
-    header('Location: inloggenM.php');
-    exit();
+checkSessie();
+
+function toevoegenP(){
+    $db = maakVerbinding();
+
+    if(isset($_POST['OpslaanNieuweP'])){
+        $Pnummer = $_POST['Pnummer'];
+        $Pnaam = $_POST['Pnaam'];
+        $Pgeslacht = $_POST['Pgeslacht'];
+        $Vnummer = $_POST['Vnummer'];
+        $Vbalie = $_POST['Vbalie'];
+        $Pstoel = $_POST['Pstoel'];
+        $Ptijd = $_POST['Ptijd'];
+
+        $sql = 'INSERT INTO Passagier (passagiernummer, naam, geslacht, vluchtnummer, balienummer, stoel, inchecktijd) VALUES (:Pnummer, :Pnaam, :Pgeslacht, :Vnummer, :Vbalie, :Pstoel, :Ptijd);';
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':Pnummer', $Pnummer);
+        $stmt->bindParam(':Pnaam', $Pnaam);
+        $stmt->bindParam(':Pgeslacht', $Pgeslacht);
+        $stmt->bindParam(':Vnummer', $Vnummer);
+        $stmt->bindParam(':Vbalie', $Vbalie);
+        $stmt->bindParam(':Pstoel', $Pstoel);
+        $stmt->bindParam(':Ptijd', $Ptijd);
+        $stmt->execute();
+    }
 }
 
 ?>
@@ -31,7 +54,7 @@ if (!isset($_SESSION['balienummer'])) {
             <a href="passagiers.php">Terug</a>
         </div>
 
-        <form action="passagiers.php" method="post">
+        <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
             <div class="form-field">
                 <label for="Passagiernummer">Passagiernummer</label>
                 <input type="number" name="Pnummer" id="Passagiernummer" placeholder="###" required>
@@ -75,14 +98,10 @@ if (!isset($_SESSION['balienummer'])) {
                 <label for="Inchecktijd">Inchecktijdstip</label>
                 <input type="datetime-local" name="Ptijd" id="Inchecktijd" required>
             </div>
-            <input type="submit" name="Opslaan" value="Opslaan">
+            <input type="submit" name="OpslaanNieuweP" value="Opslaan">
         </form>
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.php">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

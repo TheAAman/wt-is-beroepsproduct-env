@@ -27,6 +27,70 @@ function getVlucht($vluchtnummer) {
     return $row;
 }
 
+function vluchtNaarHtmlTabel($vluchtnummer) {
+    $vluchtDetails = getVlucht($vluchtnummer);
+    $vluchtenHtml = '';
+
+    if (!empty($vluchtDetails)) {
+        $vluchtenHtml .= '<p><strong>Vertrektijd:</strong> ' . htmlspecialchars($vluchtDetails['vertrektijd']) . '</p>';
+        $vluchtenHtml .= '<p><strong>Vluchtnummer:</strong> ' . htmlspecialchars($vluchtDetails['vluchtnummer']) . '</p>';
+        $vluchtenHtml .= '<p><strong>Bestemming:</strong> ' . htmlspecialchars($vluchtDetails['bestemming']) . '</p>';
+        $vluchtenHtml .= '<p><strong>Balienummer:</strong> ' . htmlspecialchars($vluchtDetails['balienummer']) . '</p>';
+        $vluchtenHtml .= '<p><strong>Gatecode:</strong> ' . htmlspecialchars($vluchtDetails['gatecode']) . '</p>';
+        $vluchtenHtml .= '<p><strong>Maatschappij:</strong> ' . htmlspecialchars($vluchtDetails['maatschappij_naam']) . '</p>';
+        $vluchtenHtml .= '<p><strong>Max aantal passagiers:</strong> ' . htmlspecialchars($vluchtDetails['aantal_passagiers']) . ' / ' . htmlspecialchars($vluchtDetails['max_aantal']) . '</a></td>';
+        $vluchtenHtml .= '<p><strong>Gewicht:</strong> ' . floor(htmlspecialchars($vluchtDetails['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vluchtDetails['max_totaalgewicht'])) . '</a></td>';
+    }
+    return $vluchtenHtml;
+}
+
+function getVluchten($vluchtnummer) {
+    $db = maakVerbinding();
+
+    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.vertrektijd, COUNT(p.passagiernummer) AS aantal_passagiers, v.max_aantal, SUM(v.max_gewicht_pp) AS totaal_gewicht, v.max_totaalgewicht
+            FROM Vlucht v
+            LEFT JOIN Passagier p ON v.vluchtnummer = p.vluchtnummer
+            WHERE v.vluchtnummer LIKE :vluchtnummer
+            GROUP BY v.vluchtnummer, v.bestemming, v.vertrektijd, v.max_aantal, v.max_totaalgewicht';
+    $stmt = $db->prepare($sql);
+    $vluchtnummer = "%$vluchtnummer%";
+    $stmt->bindParam(':vluchtnummer', $vluchtnummer);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function vluchtenNaarHtmlTabel ($vluchtnummer) {
+    $vluchten = getVluchten($vluchtnummer);
+
+    $tableRows = '';
+
+    if (count($vluchten) > 0) {
+        foreach ($vluchten as $vlucht) {
+            $tableRows .= '<tr>';
+            $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vluchtnummer']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['bestemming']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vertrektijd']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . floor(htmlspecialchars($vlucht['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vlucht['max_totaalgewicht'])) . '</a></td>';
+            $tableRows .= '</tr>';
+        }
+    }
+    return $tableRows;
+}
+
+function vluchtNaarLand($vluchtnummer) {
+    $vluchtDetails = getVlucht($vluchtnummer);
+
+    if ($vluchtDetails) {
+        $vliegveld = $vluchtDetails['bestemming'];
+        $land = omzettenLandVliegveld($vliegveld);
+        return $land;
+    }
+
+    return null;
+}
+
 function omzettenLandVliegveld($vliegveld){ //omzetten van vluchthaven naar stad/land
     $land = '';
 
@@ -84,5 +148,29 @@ function checkInB() {
                 }
             }
         }
+    }
+}
+
+function checkInP() {
+    if (isset($_POST['inchecken'])) {
+        $db = maakVerbinding();
+
+        $Pname = $_POST['Pname'];
+        $Vnummer = $_POST['Vnummer'];
+        $Bnummer = $_POST['Bnummer'];
+        $Pnummer = $_POST['Pnummer'];
+        $gender = $_POST['gender'];
+
+        $sql = 'UPDATE Passagier (vluchtnummer, balienummer, passagiernaam, geslacht)
+                VALUES (:vluchtnummer, :balienummer, :passagiernaam, :geslacht);
+                WHERE passagiernummer = :passagiernummer';
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':passagiernummer', $Pnummer);
+        $stmt->bindParam(':vluchtnummer', $Vnummer);
+        $stmt->bindParam(':balienummer', $Bnummer);
+        $stmt->bindParam(':passagiernaam', $Pname);
+        $stmt->bindParam(':geslacht', $gender);
+        $stmt->execute();
+
     }
 }

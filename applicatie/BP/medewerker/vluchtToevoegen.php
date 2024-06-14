@@ -2,10 +2,16 @@
 session_start();
 
 require_once ('../includes/db_connectie.php');
+require_once ('../includes/functies.php');
 
-if (!isset($_SESSION['balienummer'])) {
-    header('Location: inloggenM.php');
-    exit();
+checkSessieM();
+
+function toevoegenVlucht($Vnummer, $Vbestemming, $Vdatum, $Vbalie, $Vgate, $Vluchthaven, $Vmaatschappij, $passagierMax, $aantalPassagiers, $gewichtMax, $gewichtppMax) {
+    global $db;
+
+    $sql = "INSERT INTO vluchten (Vluchtnummer, Bestemming, Vertrekdatum, Balienummer, Gatecode, Luchthaven, Maatschappijcode, PassagierMax, AantalPassagiers, GewichtMax, GewichtPPMax) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$Vnummer, $Vbestemming, $Vdatum, $Vbalie, $Vgate, $Vluchthaven, $Vmaatschappij, $passagierMax, $aantalPassagiers, $gewichtMax, $gewichtppMax]);
 }
 
 ?>

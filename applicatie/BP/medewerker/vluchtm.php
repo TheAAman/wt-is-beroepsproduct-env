@@ -2,11 +2,13 @@
 session_start();
 
 require_once ('../includes/db_connectie.php');
+require_once ('../includes/functies.php');
 
-if (!isset($_SESSION['balienummer'])) {
-    header('Location: inloggenM.php');
-    exit();
-}
+checkSessieM();
+
+$vluchtnummer = isset($_GET['vluchtnummer']) ? $_GET['vluchtnummer'] : '';
+
+$land = vluchtNaarLand($vluchtnummer);
 
 ?>
 <!DOCTYPE html>
@@ -33,22 +35,11 @@ if (!isset($_SESSION['balienummer'])) {
                 <img src="../img/Steden/NY.jpg" alt="stadsfoto">
             </div>
             <div class="vluchtTekst">
-                <p><strong>Vertrektijd:</strong> 06:46:00</p>
-                <p><strong>Vluchtnummer:</strong> 27544</p>
-                <p><strong>Bestemming:</strong> New York City</p>
-                <p><strong>Balienummer:</strong> 7</p>
-                <p><strong>Gate:</strong> A</p>
-                <p><strong>Luchthaven:</strong> Luchthaven Schiphol</p>
-                <p><strong>Maatschappij:</strong> Amsterdam Airlines</p>
-                <p><strong>Passagiers:</strong> 243/ 350</p>
+            <?php echo vluchtNaarHtmlTabel($vluchtnummer); ?>   
             </div>
         </div>
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

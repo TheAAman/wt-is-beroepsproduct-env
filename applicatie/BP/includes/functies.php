@@ -1,4 +1,5 @@
 <?php
+//Algemene functies
 function checkSessie() {
     if (!isset($_SESSION['username'])) {
         header('Location: inloggenP.php');
@@ -6,6 +7,15 @@ function checkSessie() {
     }
 }
 
+function checkSessieM() {
+    if (!isset($_SESSION['balienummer'])) {
+        header('Location: inloggenM.php');
+        exit();
+    }
+}
+
+//Vluchtinfo functies
+//Vluchtinfo ophalen
 function getVlucht($vluchtnummer) {
     $db = maakVerbinding();
 
@@ -27,6 +37,7 @@ function getVlucht($vluchtnummer) {
     return $row;
 }
 
+//Vluchtinfo renderen
 function vluchtNaarHtmlTabel($vluchtnummer) {
     $vluchtDetails = getVlucht($vluchtnummer);
     $vluchtenHtml = '';
@@ -44,6 +55,7 @@ function vluchtNaarHtmlTabel($vluchtnummer) {
     return $vluchtenHtml;
 }
 
+//Zoeken vlucht info
 function getVluchten($vluchtnummer) {
     $db = maakVerbinding();
 
@@ -79,6 +91,7 @@ function vluchtenNaarHtmlTabel ($vluchtnummer) {
     return $tableRows;
 }
 
+//Bestemming vlucht functie
 function vluchtNaarLand($vluchtnummer) {
     $vluchtDetails = getVlucht($vluchtnummer);
 
@@ -127,6 +140,7 @@ function omzettenLandVliegveld($vliegveld){ //omzetten van vluchthaven naar stad
     return $land;
 }
 
+//Inchecken functies
 function checkInB() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST['Pnummer'])) {

@@ -32,7 +32,7 @@ $land = vluchtNaarLand($vluchtnummer);
         <div class="vlucht">
             <div class="vluchtBestemming"><h2>New York</h2></div>
             <div class="vluchtImg">
-                <img src="../img/Steden/NY.jpg" alt="stadsfoto">
+                <img src="../img/plane.jpg" alt="stadsfoto">
             </div>
             <div class="vluchtTekst">
             <?php echo vluchtNaarHtmlTabel($vluchtnummer); ?>   

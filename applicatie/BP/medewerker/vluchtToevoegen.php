@@ -68,7 +68,7 @@ function toevoegenVlucht($Vnummer, $Vbestemming, $Vdatum, $Vbalie, $Vgate, $Vluc
                 </div>
                 <div class="form-field">
                     <label for="Gatecode">Gatecode</label>
-                    <select name="Vgate" id="Gatecode" size="1" required>
+                    <select name="Vgate" id="Gatecode" size="1">
                         <option value="">A</option>
                         <option value="">B</option>
                         <option value="">C</option>

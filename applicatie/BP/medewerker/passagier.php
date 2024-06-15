@@ -6,6 +6,41 @@ require_once ('../includes/functies.php');
 
 checkSessieM();
 
+function passagierInfo($passagiernummer) {
+    $db = maakVerbinding();
+
+    $sql = 'SELECT passagiernummer, naam, geslacht, vluchtnummer, balienummer, stoel, inchecktijdstip 
+            FROM Passagier 
+            WHERE passagiernummer = :Pnummer;';
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':Pnummer', $passagiernummer);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function passagierNaarHtmlTabel ($passagiernummer) {
+    $passagier = passagierInfo($passagiernummer);
+
+    $passagierHtml = '';
+
+    if (count($passagier) > 0) {
+        foreach ($passagier as $p) {
+            $passagierHtml .= '<p><strong>Passagiernummer:</strong> ' . htmlspecialchars($p['passagiernummer']) . '</p>';
+            $passagierHtml .= '<p><strong>Naam:</strong> ' . htmlspecialchars($p['naam']) . '</p>';
+            $passagierHtml .= '<p><strong>Geslacht:</strong> ' . htmlspecialchars($p['geslacht']) . '</p>';
+            $passagierHtml .= '<p><strong>Vluchtnummer:</strong> ' . htmlspecialchars($p['vluchtnummer']) . '</p>';
+            $passagierHtml .= '<p><strong>Balie:</strong> ' . htmlspecialchars($p['balienummer']) . '</p>';
+            $passagierHtml .= '<p><strong>Stoel:</strong> ' . htmlspecialchars($p['stoel']) . '</p>';
+            $passagierHtml .= '<p><strong>Inchecktijdstip:</strong> ' . htmlspecialchars($p['inchecktijdstip']) . '</p>';
+        }
+    }
+    return $passagierHtml;
+}
+
+$passagiernummer = 23454;
+$passagierHtml = passagierNaarHtmlTabel($passagiernummer);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,13 +66,7 @@ checkSessieM();
 
         <div class="passagier">
             <div class="passagierDetails">
-                <p><strong>Passagiernummer:</strong> 23454</p>
-                <p><strong>Naam:</strong> Etezard</p>
-                <p><strong>Geslacht:</strong> M</p>
-                <p><strong>Vluchtnummer:</strong> 28761</p>
-                <p><strong>Balie:</strong> 2</p>
-                <p><strong>Stoel:</strong> C02</p>
-                <p><strong>Inchecktijdstip:</strong> 2023-09-29 22:46:00.000</p>
+                <?= $passagierHtml ?>
             </div>
         </div>
     </main>

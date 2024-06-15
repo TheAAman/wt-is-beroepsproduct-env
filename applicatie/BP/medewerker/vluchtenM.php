@@ -7,7 +7,7 @@ require_once ('../includes/functies.php');
 checkSessieM();
 
 $vluchtnummer = isset($_GET['Vluchtnummer']) ? $_GET['Vluchtnummer'] : '';
-$tableRows = vluchtenNaarHtmlTabel($vluchtnummer);
+$tableRows = vluchtenNaarHtmlTabelM($vluchtnummer);
 
 ?>
 <!DOCTYPE html>

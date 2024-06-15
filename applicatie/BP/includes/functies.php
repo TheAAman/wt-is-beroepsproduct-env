@@ -72,7 +72,7 @@ function getVluchten($vluchtnummer) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function vluchtenNaarHtmlTabel ($vluchtnummer) {
+function vluchtenNaarHtmlTabelP ($vluchtnummer) {
     $vluchten = getVluchten($vluchtnummer);
 
     $tableRows = '';
@@ -85,6 +85,25 @@ function vluchtenNaarHtmlTabel ($vluchtnummer) {
             $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vertrektijd']) . '</a></td>';
             $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) . '</a></td>';
             $tableRows .= '<td><a href="vluchtP.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . floor(htmlspecialchars($vlucht['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vlucht['max_totaalgewicht'])) . '</a></td>';
+            $tableRows .= '</tr>';
+        }
+    }
+    return $tableRows;
+}
+
+function vluchtenNaarHtmlTabelM ($vluchtnummer) {
+    $vluchten = getVluchten($vluchtnummer);
+
+    $tableRows = '';
+
+    if (count($vluchten) > 0) {
+        foreach ($vluchten as $vlucht) {
+            $tableRows .= '<tr>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vluchtnummer']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['bestemming']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vertrektijd']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . floor(htmlspecialchars($vlucht['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vlucht['max_totaalgewicht'])) . '</a></td>';
             $tableRows .= '</tr>';
         }
     }

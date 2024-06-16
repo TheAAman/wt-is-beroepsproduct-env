@@ -77,10 +77,6 @@ if ($logged_in) {
         </div>
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.php">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

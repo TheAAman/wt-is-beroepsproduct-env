@@ -1,4 +1,5 @@
 <?php
+//Algemene functies
 function checkSessie() {
     if (!isset($_SESSION['username'])) {
         header('Location: inloggenP.php');
@@ -6,6 +7,15 @@ function checkSessie() {
     }
 }
 
+function checkSessieM() {
+    if (!isset($_SESSION['balienummer'])) {
+        header('Location: inloggenM.php');
+        exit();
+    }
+}
+
+//Vluchtinfo functies
+//Vluchtinfo ophalen
 function getVlucht($vluchtnummer) {
     $db = maakVerbinding();
 
@@ -27,6 +37,7 @@ function getVlucht($vluchtnummer) {
     return $row;
 }
 
+//Vluchtinfo renderen
 function vluchtNaarHtmlTabel($vluchtnummer) {
     $vluchtDetails = getVlucht($vluchtnummer);
     $vluchtenHtml = '';
@@ -44,6 +55,7 @@ function vluchtNaarHtmlTabel($vluchtnummer) {
     return $vluchtenHtml;
 }
 
+//Zoeken vlucht info
 function getVluchten($vluchtnummer) {
     $db = maakVerbinding();
 
@@ -60,7 +72,7 @@ function getVluchten($vluchtnummer) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function vluchtenNaarHtmlTabel ($vluchtnummer) {
+function vluchtenNaarHtmlTabelP ($vluchtnummer) {
     $vluchten = getVluchten($vluchtnummer);
 
     $tableRows = '';
@@ -79,6 +91,26 @@ function vluchtenNaarHtmlTabel ($vluchtnummer) {
     return $tableRows;
 }
 
+function vluchtenNaarHtmlTabelM ($vluchtnummer) {
+    $vluchten = getVluchten($vluchtnummer);
+
+    $tableRows = '';
+
+    if (count($vluchten) > 0) {
+        foreach ($vluchten as $vlucht) {
+            $tableRows .= '<tr>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vluchtnummer']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['bestemming']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vertrektijd']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) . '</a></td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . floor(htmlspecialchars($vlucht['totaal_gewicht'])) . ' / ' . floor(htmlspecialchars($vlucht['max_totaalgewicht'])) . '</a></td>';
+            $tableRows .= '</tr>';
+        }
+    }
+    return $tableRows;
+}
+
+//Bestemming vlucht functie
 function vluchtNaarLand($vluchtnummer) {
     $vluchtDetails = getVlucht($vluchtnummer);
 
@@ -127,6 +159,7 @@ function omzettenLandVliegveld($vliegveld){ //omzetten van vluchthaven naar stad
     return $land;
 }
 
+//Inchecken functies
 function checkInB() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_POST['Pnummer'])) {

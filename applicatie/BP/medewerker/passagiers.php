@@ -2,11 +2,9 @@
 session_start();
 
 require_once ('../includes/db_connectie.php');
+require_once ('../includes/functies.php');
 
-if (!isset($_SESSION['balienummer'])) {
-    header('Location: inloggenM.php');
-    exit();
-}
+checkSessieM(); 
 
 ?>
 <!DOCTYPE html>

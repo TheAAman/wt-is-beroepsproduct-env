@@ -4,7 +4,7 @@ session_start();
 require_once ('../includes/db_connectie.php');
 require_once ('../includes/functies.php');
 
-checkSessie();
+checkSessieP();
 
 $username = $_SESSION['username'];
 

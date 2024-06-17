@@ -7,7 +7,10 @@ require_once ('../includes/functies.php');
 checkSessieM();
 
 $vluchtnummer = isset($_GET['Vluchtnummer']) ? $_GET['Vluchtnummer'] : '';
-$tableRows = vluchtenNaarHtmlTabelM($vluchtnummer);
+$sorteerColom = isset($_GET['sorteerColom']) ? $_GET['sorteerColom'] : 'bestemming';
+$sorteerVolgorde = isset($_GET['sorteerVolgorde']) ? $_GET['sorteerVolgorde'] : 'ASC';
+
+$tableRows = vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerColom, $sorteerVolgorde);
 
 ?>
 <!DOCTYPE html>
@@ -46,13 +49,6 @@ $tableRows = vluchtenNaarHtmlTabelM($vluchtnummer);
 
         <div class="Overzicht">
             <table class="tabelOverzicht">
-                <tr>
-                    <th>Vluchtnummer</th>
-                    <th>Bestemming</th>
-                    <th>Vertrektijd</th>
-                    <th>Passagiers</th>
-                    <th>Gewicht</th>
-                </tr>
                 <?= $tableRows ?>
             </table>           
         </div>

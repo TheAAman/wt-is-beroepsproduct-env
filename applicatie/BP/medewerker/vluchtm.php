@@ -30,7 +30,7 @@ $land = vluchtNaarLand($vluchtnummer);
 
     <main>
         <div class="vlucht">
-            <div class="vluchtBestemming"><h2>New York</h2></div>
+            <div class="vluchtBestemming"><h2><?php echo $land ?></h2></div>
             <div class="vluchtImg">
                 <img src="../img/plane.jpg" alt="stadsfoto">
             </div>

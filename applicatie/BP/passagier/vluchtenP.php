@@ -1,13 +1,16 @@
-<?php 
+<?php
 session_start();
 
 require_once('../includes/db_connectie.php');
 require_once('../includes/functies.php');
 
-checkSessie();
+checkSessieP();
 
 $vluchtnummer = isset($_GET['Vluchtnummer']) ? $_GET['Vluchtnummer'] : '';
-$tableRows = vluchtenNaarHtmlTabelP($vluchtnummer);
+$sorteerColom = isset($_GET['sorteerColom']) ? $_GET['sorteerColom'] : 'bestemming';
+$sorteerVolgorde = isset($_GET['sorteerVolgorde']) ? $_GET['sorteerVolgorde'] : 'ASC';
+
+$tableRows = vluchtenNaarHtmlTabelP($vluchtnummer, $sorteerColom, $sorteerVolgorde);
 
 ?>
 <!DOCTYPE html>
@@ -42,13 +45,6 @@ $tableRows = vluchtenNaarHtmlTabelP($vluchtnummer);
 
         <div class="Overzicht">
             <table class="tabelOverzicht">
-                <tr>
-                    <th>Vluchtnummer</th>
-                    <th>Bestemming</th>
-                    <th>Vertrektijd</th>
-                    <th>Passagiers</th>
-                    <th>Gewicht</th>
-                </tr>
                 <?= $tableRows ?>
             </table>           
         </div>

@@ -144,7 +144,8 @@ function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerColom = 'bestemming', $so
             $passagierInfo = $vlucht['aantal_passagiers'] . ' / ' . $vlucht['max_aantal'];
             $gewichtInfo = intval($vlucht['totaal_gewicht']) . ' / ' . intval($vlucht['max_totaalgewicht']);
 
-            $tableRows .= '<td>' . $passagierInfo . '</td>';
+            $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . $passagierInfo . '</a></td>';
+        // $tableRows .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) . '</a></td>';
             $tableRows .= '<td>' . $gewichtInfo . '</td>';
 
             $tableRows .= '</tr>';

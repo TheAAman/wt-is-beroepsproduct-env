@@ -38,16 +38,6 @@ $passagiernummer = isset($_GET['Passagiernummer']) ? $_GET['Passagiernummer'] : 
                     <input class="zoekKnop" type="submit" value="Zoeken">
                 </div>
             </form>
-
-            <form action="passagierZoeken.php" method="get">
-                <h3>Naam:</h3>
-                <div class="balkBalk">
-                    <input class="zoekbalkBalk" type="text" name="naam" placeholder="Naam">
-                </div>
-                <div class="zoekKnopContainer">
-                    <input class="zoekKnop" type="submit" value="Zoeken">
-                </div>
-            </form>
         </div>
 
     </main>

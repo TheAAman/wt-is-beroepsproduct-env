@@ -42,7 +42,6 @@ function passagierNaarHtmlTabel ($passagiernummer) {
     return $passagierHtml;
 }
 
-
 $passagierHtml = passagierNaarHtmlTabel($passagiernummer);
 
 ?>

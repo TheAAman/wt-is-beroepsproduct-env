@@ -15,7 +15,7 @@ function checkSessieM() {
 }
 
 //Vluchtinfo functies
-//Vluchtinfo ophalen
+//1. Vluchtinfo ophalen
 function getVlucht($vluchtnummer) {
     $db = maakVerbinding();
 
@@ -37,7 +37,7 @@ function getVlucht($vluchtnummer) {
     return $row;
 }
 
-//Vluchtinfo renderen
+//2. Vluchtinfo renderen
 function vluchtNaarHtmlTabel($vluchtnummer) {
     $vluchtDetails = getVlucht($vluchtnummer);
     $vluchtenHtml = '';

@@ -6,14 +6,18 @@ require_once ('../includes/functies.php');
 
 checkSessieM();
 
+$passagiernummer = isset($_GET['passagiernummer']) ? $_GET['passagiernummer'] : '';
+
 function passagierInfo($passagiernummer) {
     $db = maakVerbinding();
 
     $sql = 'SELECT passagiernummer, naam, geslacht, vluchtnummer, balienummer, stoel, inchecktijdstip 
             FROM Passagier 
             WHERE passagiernummer = :Pnummer;';
+
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':Pnummer', $passagiernummer);
+
+    $stmt->bindParam(':Pnummer', $passagiernummer, PDO::PARAM_INT);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -38,7 +42,7 @@ function passagierNaarHtmlTabel ($passagiernummer) {
     return $passagierHtml;
 }
 
-$passagiernummer = 23454;
+
 $passagierHtml = passagierNaarHtmlTabel($passagiernummer);
 
 ?>
@@ -71,10 +75,6 @@ $passagierHtml = passagierNaarHtmlTabel($passagiernummer);
         </div>
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

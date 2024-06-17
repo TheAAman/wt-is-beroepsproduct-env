@@ -6,6 +6,8 @@ require_once ('../includes/functies.php');
 
 checkSessieM();
 
+$passagiernummer = isset($_GET['Passagiernummer']) ? $_GET['Passagiernummer'] : '';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,20 +29,20 @@ checkSessieM();
     <main>
 
         <div class="zoekBalk">
-            <form action="passagierZoeken.html" method="get">
+            <form action="passagier.php" method="get">
                 <h3>Passagiernummer:</h3>
                 <div class="balkBalk">
-                    <input class="zoekbalkBalk" type="number" name="Passagiernummer" placeholder="Nummer">
+                    <input class="zoekbalkBalk" type="number" name="passagiernummer" placeholder="Nummer">
                 </div>
                 <div class="zoekKnopContainer">
                     <input class="zoekKnop" type="submit" value="Zoeken">
                 </div>
             </form>
 
-            <form action="passagierZoeken.html" method="get">
+            <form action="passagierZoeken.php" method="get">
                 <h3>Naam:</h3>
                 <div class="balkBalk">
-                    <input class="zoekbalkBalk" type="text" name="Passagiernaam" placeholder="Naam">
+                    <input class="zoekbalkBalk" type="text" name="naam" placeholder="Naam">
                 </div>
                 <div class="zoekKnopContainer">
                     <input class="zoekKnop" type="submit" value="Zoeken">

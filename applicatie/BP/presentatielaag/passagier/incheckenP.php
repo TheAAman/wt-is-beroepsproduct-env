@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require_once('../includes/db_connectie.php');
+require_once('../../datalaag/db_connectie.php');
 
 require_once('../includes/functies.php');
 
-require_once('../Sessielaag/checkSessie_functies.php');
-require_once('../Datalaag/vluchtinfo_functies.php');
-require_once('../Datalaag/inchecken_functies.php');
+require_once ('../../sessielaag/checkSessie_functies.php');
+require_once ('../../datalaag/vluchtinfo_functies.php');
+require_once ('../../datalaag/inchecken_functies.php');
 
 checkSessieP();
 

@@ -2,5 +2,5 @@
         <a href="homeP.php" class="menuitem">Home</a>
         <a href="vluchtenP.php" class="menuitem">Vluchten</a>
         <a href="incheckenP.php" class="menuitem">Inchecken</a>
-        <a href="../includes/uitloggenP.php" class="menuitem">Uitloggen</a>
+        <a href="../../sessielaag/uitloggenP.php" class="menuitem">Uitloggen</a>
 </div>

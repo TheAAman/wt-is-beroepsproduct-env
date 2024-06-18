@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once('../includes/db_connectie.php'); 
+require_once('../../datalaag/db_connectie.php');
 
 $logged_in = false;
 

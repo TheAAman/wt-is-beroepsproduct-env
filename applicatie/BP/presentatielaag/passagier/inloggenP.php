@@ -2,49 +2,11 @@
 session_start();
 
 require_once('../../datalaag/db_connectie.php');
+require_once('../../datalaag/inloggen_functies.php');
 
 $logged_in = false;
 
-function checkUser ($username, $password){ 
-    $db = maakVerbinding(); 
-    
-    $sql = 'SELECT * From Passagier WHERE naam = :username;'; 
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(":username", $username);
-    $stmt->execute();
-  
-    $row = $stmt->fetch(PDO::FETCH_ASSOC); 
-  
-    if ($row) { 
-      $stored_password = $row['wachtwoord'];
-     
-    // if (password_verify($password, $stored_password)) {
-    if ($password === $stored_password){
-          return true; 
-        }
-    }
-    return false; 
-}
-
-if (isset($_POST['loginP'])){ 
-    $username = $_POST['username']; 
-    $password = $_POST['password']; 
-
-    if (checkUser($username, $password)){
-        $_SESSION['username'] = $username;
-        $logged_in = true;
-        
-        header('Location: homep.php'); 
-        exit();
-    } else {
-        echo "Invalid username or password"; 
-    }
-}
-
-if ($logged_in) {
-    header('Location: homep.php');
-    exit();
-}
+inloggenP();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,10 +40,6 @@ if ($logged_in) {
         </div>
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.php">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

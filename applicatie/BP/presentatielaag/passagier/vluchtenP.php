@@ -3,18 +3,17 @@ session_start();
 
 require_once('../../datalaag/db_connectie.php');
 
-require_once('../includes/functies.php');
-
 require_once ('../../sessielaag/checkSessie_functies.php');
 require_once ('../../datalaag/vluchtinfo_functies.php');
+require_once ('../../sessielaag/renderen_functies.php');
 
 checkSessieP();
 
 $vluchtnummer = isset($_GET['Vluchtnummer']) ? $_GET['Vluchtnummer'] : '';
-$sorteerColom = isset($_GET['sorteerColom']) ? $_GET['sorteerColom'] : 'bestemming';
+$sorteerKolom = isset($_GET['sorteerKolom']) ? $_GET['sorteerKolom'] : 'bestemming';
 $sorteerVolgorde = isset($_GET['sorteerVolgorde']) ? $_GET['sorteerVolgorde'] : 'ASC';
 
-$tableRows = vluchtenNaarHtmlTabelP($vluchtnummer, $sorteerColom, $sorteerVolgorde);
+$tabelHtmlP = vluchtenNaarHtmlTabelP($vluchtnummer, $sorteerKolom, $sorteerVolgorde);
 
 ?>
 <!DOCTYPE html>
@@ -49,7 +48,7 @@ $tableRows = vluchtenNaarHtmlTabelP($vluchtnummer, $sorteerColom, $sorteerVolgor
 
         <div class="Overzicht">
             <table class="tabelOverzicht">
-                <?= $tableRows ?>
+                <?= $tabelHtmlP ?>
             </table>           
         </div>
     </main>

@@ -3,10 +3,9 @@ session_start();
 
 require_once('../../datalaag/db_connectie.php');
 
-require_once ('../includes/functies.php');
-
 require_once ('../../sessielaag/checkSessie_functies.php');
 require_once ('../../datalaag/vluchtinfo_functies.php');
+require_once ('../../sessielaag/renderen_functies.php');
 
 checkSessieP();
 
@@ -34,7 +33,7 @@ $land = vluchtNaarLand($vluchtnummer);
 
     <main>
         <div class="vlucht">
-            <div class="vluchtBestemming"><h2><?php echo $land ?></h2></div>
+            <div class="vluchtBestemming"><h2><?php echo isset($land['luchthaven']) ? htmlspecialchars($land['luchthaven']) : 'Onbekend'; ?></h2></div>
             <div class="vluchtImg">
                 <img src="../img/plane.jpg" alt="vliegtuig">
             </div>

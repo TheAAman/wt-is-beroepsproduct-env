@@ -1,50 +1,12 @@
 <?php
 session_start();
 
-include_once('../includes/db_connectie.php');
+require_once('../../datalaag/db_connectie.php');
+require_once('../../datalaag/inloggen_functies.php');
 
 $logged_in = false;
 
-function checkBalie ($balienummer, $password){ 
-    $db = maakVerbinding(); 
-    
-    $sql = 'SELECT * From Balie WHERE balienummer = :balienummer;'; 
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(":balienummer", $balienummer);
-    $stmt->execute();
-  
-    $row = $stmt->fetch(PDO::FETCH_ASSOC); 
-  
-    if ($row) { 
-      $stored_password = $row['wachtwoord'];
-     
-    // if (password_verify($password, $stored_password)) {
-    if ($password === $stored_password){
-          return true; 
-        }
-    }
-    return false; 
-}
-
-if (isset($_POST['loginM'])){ 
-    $balienummer = $_POST['balienummer']; 
-    $password = $_POST['password']; 
-
-    if (checkBalie($balienummer, $password)){
-        $_SESSION['balienummer'] = $balienummer;
-        $logged_in = true;
-        
-        header('Location: incheckenM.php'); 
-        exit();
-    } else {
-        echo "Invalid balienummer or password"; 
-    }
-}
-
-if ($logged_in) {
-    header('Location: incheckenM.php');
-    exit();
-}
+inloggenM();
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -3,30 +3,28 @@ session_start();
 
 require_once('../../datalaag/db_connectie.php');
 
-require_once('../includes/functies.php');
-
 require_once ('../../sessielaag/checkSessie_functies.php');
 require_once ('../../datalaag/vluchtinfo_functies.php');
 require_once ('../../datalaag/inchecken_functies.php');
 
 checkSessieP();
 
-function getVluchtByPassagier($passagiernummer) {
-    $db = maakVerbinding();
+// function getVluchtByPassagier($passagiernummer) {
+//     $db = maakVerbinding();
 
-    $sql = 'SELECT v.vluchtnummer 
-            FROM Passagier p
-            JOIN Vlucht v ON p.vluchtnummer = v.vluchtnummer
-            WHERE p.passagiernummer = :passagiernummer';
+//     $sql = 'SELECT v.vluchtnummer 
+//             FROM Passagier p
+//             JOIN Vlucht v ON p.vluchtnummer = v.vluchtnummer
+//             WHERE p.passagiernummer = :passagiernummer';
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':passagiernummer', $passagiernummer, PDO::PARAM_INT);
-    $stmt->execute();
+//     $stmt = $db->prepare($sql);
+//     $stmt->bindParam(':passagiernummer', $passagiernummer, PDO::PARAM_INT);
+//     $stmt->execute();
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+//     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $row ? $row['vluchtnummer'] : null;
-}
+//     return $row ? $row['vluchtnummer'] : null;
+// }
 
 checkInP();
 checkInB();

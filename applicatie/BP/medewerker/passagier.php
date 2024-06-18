@@ -64,7 +64,7 @@ $passagierHtml = passagierNaarHtmlTabel($passagiernummer);
 
     <main>
         <div class="passagierWijzigen">
-            <a href="passagierWijzigen.html">Passagier wijzigen</a>
+            <a href="passagierWijzigen.php?passagiernummer=<?= $passagiernummer ?>">Passagier wijzigen</a>
         </div>
 
         <div class="passagier">

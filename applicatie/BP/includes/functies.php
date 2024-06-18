@@ -1,43 +1,8 @@
 <?php
-//Algemene functies
-function checkSessieP() {
-    if (!isset($_SESSION['username'])) {
-        header('Location: inloggenP.php');
-        exit();
-    }
-}
+//Vluchtinfo detailspagina functies
+//1. Vluchtinfo detailspagina ophalen
 
-function checkSessieM() {
-    if (!isset($_SESSION['balienummer'])) {
-        header('Location: inloggenM.php');
-        exit();
-    }
-}
-
-//Vluchtinfo functies
-//1. Vluchtinfo ophalen
-function getVlucht($vluchtnummer) {
-    $db = maakVerbinding();
-
-    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.vertrektijd, COUNT(p.passagiernummer) AS aantal_passagiers, v.max_aantal, SUM(v.max_gewicht_pp) AS totaal_gewicht, v.max_totaalgewicht, m.naam AS maatschappij_naam, ib.balienummer, v.gatecode, v.maatschappijcode
-            FROM Vlucht v
-            LEFT JOIN Passagier p ON v.vluchtnummer = p.vluchtnummer
-            LEFT JOIN Maatschappij m ON v.maatschappijcode = m.maatschappijcode
-            LEFT JOIN incheckenBestemming ib ON v.bestemming = ib.luchthavencode
-            WHERE v.vluchtnummer LIKE :vluchtnummer
-            GROUP BY v.vluchtnummer, v.bestemming, v.vertrektijd, v.max_aantal, v.max_totaalgewicht, m.naam, ib.balienummer, v.gatecode, v.maatschappijcode;';
-
-    $stmt = $db->prepare($sql);
-    
-    $stmt->bindParam(':vluchtnummer', $vluchtnummer);
-    $stmt->execute();
-
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $row;
-}
-
-//2. Vluchtinfo renderen
+//2. Vluchtinfo detailspagina renderen
 function vluchtNaarHtmlTabel($vluchtnummer) {
     $vluchtDetails = getVlucht($vluchtnummer);
     $vluchtenHtml = '';
@@ -55,25 +20,11 @@ function vluchtNaarHtmlTabel($vluchtnummer) {
     return $vluchtenHtml;
 }
 
-//Zoeken vlucht info
-function getVluchten($vluchtnummer, $sorteerColom, $sorteerVolgorde) {
-    $db = maakVerbinding();
+//Vluchtinfo vluchtenlijst functies
+// 1. Vluchtinfo vluchtenlijst ophalen
 
-    $sql = 'SELECT v.vluchtnummer, v.bestemming, v.vertrektijd, COUNT(p.passagiernummer) AS aantal_passagiers, v.max_aantal, SUM(v.max_gewicht_pp) AS totaal_gewicht, v.max_totaalgewicht
-            FROM Vlucht v
-            LEFT JOIN Passagier p ON v.vluchtnummer = p.vluchtnummer
-            WHERE v.vluchtnummer LIKE :vluchtnummer
-            GROUP BY v.vluchtnummer, v.bestemming, v.vertrektijd, v.max_aantal, v.max_totaalgewicht
-            ORDER BY ' . $sorteerColom . ' ' . $sorteerVolgorde;
-
-    $stmt = $db->prepare($sql);
-    $vluchtnummer = "%$vluchtnummer%";
-    $stmt->bindParam(':vluchtnummer', $vluchtnummer);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
+//2. Vluchtinfo vluchtenlijst renderen
+//2-1. Vluchtinfo vluchtenlijst renderen voor passagiers
 function vluchtenNaarHtmlTabelP($vluchtnummer, $sorteerColom = 'bestemming', $sorteerVolgorde = 'ASC') {
     $vluchten = getVluchten($vluchtnummer, $sorteerColom, $sorteerVolgorde);
 
@@ -114,6 +65,7 @@ function vluchtenNaarHtmlTabelP($vluchtnummer, $sorteerColom = 'bestemming', $so
     return $tableRows;
 }
 
+//2-2. Vluchtinfo vluchtenlijst renderen voor medewerkers
 function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerColom = 'bestemming', $sorteerVolgorde = 'ASC') {
     $vluchten = getVluchten($vluchtnummer, $sorteerColom, $sorteerVolgorde);
 
@@ -155,6 +107,7 @@ function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerColom = 'bestemming', $so
     return $tableRows;
 }
 
+//Vluchtinfo vluchtenlijst functies (verouderd)
 // function getVluchten($vluchtnummer) {
 //     $db = maakVerbinding();
 
@@ -210,6 +163,7 @@ function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerColom = 'bestemming', $so
 // }
 
 //Bestemming vlucht functie
+//Bestemmingstitel functie
 function vluchtNaarLand($vluchtnummer) {
     $vluchtDetails = getVlucht($vluchtnummer);
 
@@ -222,6 +176,7 @@ function vluchtNaarLand($vluchtnummer) {
     return null;
 }
 
+//Bestemmingsafkorting omzetten naar land functie
 function omzettenLandVliegveld($vliegveld){ //omzetten van vluchthaven naar stad/land
     $land = '';
 
@@ -258,51 +213,32 @@ function omzettenLandVliegveld($vliegveld){ //omzetten van vluchthaven naar stad
     return $land;
 }
 
+//Inchecken functies (verouderd)
+// function checkInB() {
+//     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//         if (isset($_POST['Pnummer'])) {
+//             $passagiernummer = $_POST['Pnummer'];
+//             $db = maakVerbinding();
+
+//             $sql = 'INSERT INTO Bagageobject (passagiernummer, objectvolgnummer, gewicht)
+//                     VALUES (:passagiernummer, :objectvolgnummer, :gewichtB)';
+//             $stmt = $db->prepare($sql);
+
+//             for ($i = 1; $i <= 3; $i++) {
+//                 $gewichtVeld = "gewichtB" . $i;
+//                 $gewicht = isset($_POST[$gewichtVeld]) ? $_POST[$gewichtVeld] : null;
+//                 if ($gewicht !== null && $gewicht !== '') {
+//                     $stmt->bindParam(':passagiernummer', $passagiernummer);
+//                     $stmt->bindParam(':objectvolgnummer', $i);
+//                     $stmt->bindParam(':gewichtB', $gewicht);
+//                     $stmt->execute();
+//                 }
+//             }
+//         }
+//     }
+// }
+
 //Inchecken functies
-function checkInB() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (isset($_POST['Pnummer'])) {
-            $passagiernummer = $_POST['Pnummer'];
-            $db = maakVerbinding();
+//1. Inchecken passagier functie
 
-            $sql = 'INSERT INTO Bagageobject (passagiernummer, objectvolgnummer, gewicht)
-                    VALUES (:passagiernummer, :objectvolgnummer, :gewichtB)';
-            $stmt = $db->prepare($sql);
-
-            for ($i = 1; $i <= 3; $i++) {
-                $gewichtVeld = "gewichtB" . $i;
-                $gewicht = isset($_POST[$gewichtVeld]) ? $_POST[$gewichtVeld] : null;
-                if ($gewicht !== null && $gewicht !== '') {
-                    $stmt->bindParam(':passagiernummer', $passagiernummer);
-                    $stmt->bindParam(':objectvolgnummer', $i);
-                    $stmt->bindParam(':gewichtB', $gewicht);
-                    $stmt->execute();
-                }
-            }
-        }
-    }
-}
-
-function checkInP() {
-    if (isset($_POST['inchecken'])) {
-        $db = maakVerbinding();
-
-        $Pname = $_POST['Pname'];
-        $Vnummer = $_POST['Vnummer'];
-        $Bnummer = $_POST['Bnummer'];
-        $Pnummer = $_POST['Pnummer'];
-        $gender = $_POST['gender'];
-
-        $sql = 'UPDATE Passagier (vluchtnummer, balienummer, passagiernaam, geslacht)
-                VALUES (:vluchtnummer, :balienummer, :passagiernaam, :geslacht);
-                WHERE passagiernummer = :passagiernummer';
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':passagiernummer', $Pnummer);
-        $stmt->bindParam(':vluchtnummer', $Vnummer);
-        $stmt->bindParam(':balienummer', $Bnummer);
-        $stmt->bindParam(':passagiernaam', $Pname);
-        $stmt->bindParam(':geslacht', $gender);
-        $stmt->execute();
-
-    }
-}
+//2. Inchecken bagage functie

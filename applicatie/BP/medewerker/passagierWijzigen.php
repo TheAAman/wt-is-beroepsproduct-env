@@ -6,10 +6,12 @@ require_once ('../includes/functies.php');
 
 checkSessieM();
 
+$passagiernummer = isset($_GET['passagiernummer']) ? $_GET['passagiernummer'] : '';
+
 function wijzigP () {
     $db = maakVerbinding();
 
-    if (isset($_POST['Opslaan'])) {
+    if (isset($_POST['OpslaanWijzigP'])) {
         $Pnummer = $_POST['Pnummer'];
         $Pnaam = $_POST['Pnaam'];
         $Pgeslacht = $_POST['Pgeslacht'];
@@ -18,16 +20,27 @@ function wijzigP () {
         $Pstoel = $_POST['Pstoel'];
         $Ptijd = $_POST['Ptijd'];
 
-        $sql = 'UPDATE Passagier SET naam = :Pnaam, geslacht = :Pgeslacht, vluchtnummer = :Vnummer, balienummer = :Vbalie, stoel = :Pstoel, inchecktijd = :Ptijd WHERE passagiernummer = :Pnummer;';
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':Pnummer', $Pnummer);
-        $stmt->bindParam(':Pnaam', $Pnaam);
-        $stmt->bindParam(':Pgeslacht', $Pgeslacht);
-        $stmt->bindParam(':Vnummer', $Vnummer);
-        $stmt->bindParam(':Vbalie', $Vbalie);
-        $stmt->bindParam(':Pstoel', $Pstoel);
-        $stmt->bindParam(':Ptijd', $Ptijd);
-        $stmt->execute();
+        $vlucht = getVlucht($Vnummer);
+
+        if ($vlucht['aantal_passagiers'] < $vlucht['max_aantal']) {
+            $sql = 'UPDATE Passagier 
+                    SET naam = :Pnaam, geslacht = :Pgeslacht, vluchtnummer = :Vnummer, balienummer = :Vbalie, stoel = :Pstoel, inchecktijd = :Ptijd 
+                    WHERE passagiernummer = :Pnummer;';
+
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindParam(':Pnummer', $Pnummer, PDO::PARAM_INT);
+            $stmt->bindParam(':Pnaam', $Pnaam);
+            $stmt->bindParam(':Pgeslacht', $Pgeslacht);
+            $stmt->bindParam(':Vnummer', $Vnummer, PDO::PARAM_INT);
+            $stmt->bindParam(':Vbalie', $Vbalie, PDO::PARAM_INT);
+            $stmt->bindParam(':Pstoel', $Pstoel);
+            $stmt->bindParam(':Ptijd', $Ptijd);
+
+            $stmt->execute();
+        } else {
+            echo "Vliegtuig zit vol";
+        }
     }
 }
 
@@ -40,7 +53,7 @@ function wijzigP () {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/jpg" href="../img/Icons/vticon.png">
-    <title>Inchecken Baggage medewerker</title>
+    <title>Wijzigen Passagier informatie</title>
 </head>
 <body>
     <header>
@@ -51,13 +64,13 @@ function wijzigP () {
 
     <main>
         <div class="form-field">
-            <a href="passagier.html">Terug</a>
+            <a href="passagier.php?passagiernummer=<?=$passagiernummer ?>">Terug</a>
         </div>
 
-        <form action="passagier.html" method="post">
+        <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
             <div class="form-field">
                 <label for="Passagiernummer">Passagiernummer</label>
-                <input type="number" name="Pnummer" id="Passagiernummer" placeholder="###" required>
+                <input type="number" name="Pnummer" id="Passagiernummer" placeholder="###" value="<?= $passagiernummer ?>" required>
             </div>
             <div class="form-field">
                 <label for="Naam">Naam</label>
@@ -98,7 +111,7 @@ function wijzigP () {
                 <label for="Inchecktijd">Inchecktijdstip</label>
                 <input type="datetime-local" name="Ptijd" id="Inchecktijd" required>
             </div>
-            <input type="submit" name="Opslaan" value="Opslaan">
+            <input type="submit" name="OpslaanWijzigP" value="Opslaan">
         </form>
     </main>
 

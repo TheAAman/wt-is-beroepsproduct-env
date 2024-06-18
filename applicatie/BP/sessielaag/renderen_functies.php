@@ -21,7 +21,7 @@ function omzettenLandVliegveld($vliegveld){
             FROM Luchthaven
             WHERE luchthavencode = :vliegveld';
     $stmt = $db->prepare($sql);
-    $stmt->bindParam(':vliegveld', $vliegveld, PDO::PARAM_STR);
+    $stmt->bindParam(':vliegveld', $vliegveld);
     $stmt->execute();
 
     $resultaat = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -155,9 +155,11 @@ function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerKolom = 'bestemming', $so
             $passagierInfo = $vlucht['aantal_passagiers'] . ' / ' . $vlucht['max_aantal'];
             $gewichtInfo = intval($vlucht['totaal_gewicht']) . ' / ' . intval($vlucht['max_totaalgewicht']);
 
-            $tabelHtmlM .= '<td><a href="vluchtM.php?vluchtnummer=' . $passagierInfo . '</a></td>';
-        // $tabelHtmlM .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) . '</a></td>';
-            $tabelHtmlM .= '<td>' . $gewichtInfo . '</td>';
+            // $tabelHtmlM .= '<td><a href="vluchtM.php?vluchtnummer=' . $passagierInfo . '</a></td>';
+            $tabelHtmlM .= '<td><a href="passagiers.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($passagierInfo) . '</a></td>';
+
+            // $tabelHtmlM .= '<td>' . $gewichtInfo . '</td>';
+            $tabelHtmlM .= '<td><a href="passagiers.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($gewichtInfo) . '</a></td>';
 
             $tabelHtmlM .= '</tr>';
         }

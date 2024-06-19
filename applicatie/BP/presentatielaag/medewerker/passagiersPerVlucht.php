@@ -5,47 +5,20 @@ require_once('../../datalaag/db_connectie.php');
 
 require_once ('../../sessielaag/checkSessie_functies.php');
 require_once ('../../datalaag/vluchtinfo_functies.php');
+require_once ('../../datalaag/passagierinfo_functies.php');
 require_once ('../../sessielaag/renderen_functies.php');
+require_once ('../../Sessielaag/uitloggen_functies.php');
 
 checkSessieM();
 
 $vluchtnummer = isset($_GET['vluchtnummer']) ? $_GET['vluchtnummer'] : '';
 
+if (isset($_GET['action']) && $_GET['action'] == 'uitloggenM') {
+    uitloggenM();
+}
+
 $vlucht = haalVlucht($vluchtnummer);
 $land = vluchtNaarLand($vluchtnummer);
-
-function passagierPerVlucht($vluchtnummer){
-    $db = maakVerbinding();
-
-    $sql = 'SELECT passagiernummer, naam, geslacht, inchecktijdstip
-            FROM Passagier 
-            WHERE vluchtnummer = :vluchtnummer;';
-
-    $stmt = $db->prepare($sql);
-    $stmt->bindParam(':vluchtnummer', $vluchtnummer, PDO::PARAM_INT);
-    $stmt->execute();
-
-    $passagiers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $passagiers;
-}
-
-function passagierPVNaarHtmlTabel($vluchtnummer) {
-    $passagiers = passagierPerVlucht($vluchtnummer);
-
-    $passagierPVHtml = '';
-
-    if (count($passagiers) > 0) {
-        foreach ($passagiers as $p) {
-            $passagierPVHtml .= '<tr>';
-            $passagierPVHtml .= '<td><a href="passagier.php?passagiernummer=' . htmlspecialchars($p['passagiernummer']) . '" class="vluchtenLink">' . htmlspecialchars($p['passagiernummer']) . '</a></td>';
-            $passagierPVHtml .= '<td><a href="passagier.php?passagiernummer=' . htmlspecialchars($p['passagiernummer']) . '" class="vluchtenLink">' . htmlspecialchars($p['naam']) . '</a></td>';
-            $passagierPVHtml .= '<td><a href="passagier.php?passagiernummer=' . htmlspecialchars($p['passagiernummer']) . '" class="vluchtenLink">' . htmlspecialchars($p['geslacht']) . '</a></td>';
-            $passagierPVHtml .= '<td><a href="passagier.php?passagiernummer=' . htmlspecialchars($p['passagiernummer']) . '" class="vluchtenLink">' . htmlspecialchars($p['inchecktijdstip']) . '</a></td>';
-            $passagierPVHtml .= '</tr>';
-        }
-    }
-    return $passagierPVHtml;
-}
 
 $passagierPVHtml = passagierPVNaarHtmlTabel($vluchtnummer);
 ?>
@@ -63,9 +36,12 @@ $passagierPVHtml = passagierPVNaarHtmlTabel($vluchtnummer);
     <header>
         <h1>Gelre airport</h1>
     </header>
-
-    <?php include_once '../includes/navM.php'; ?>
-
+    <div class="menunavigatie">
+        <a href="incheckenM.php" class="menuitem">Inchecken</a>
+        <a href="vluchtenM.php" class="menuitem">Vluchten</a>
+        <a href="passagierZoeken.php" class="menuitem">Passagiers</a>
+        <a href="?action=uitloggenM" class="menuitem">Uitloggen</a>
+    </div>
     <main>
         <div class="passagierToevoegen">
             <a href="passagierToevoegen.php?vluchtnummer=<?= $vluchtnummer ?>">Passagier toevoegen</a>

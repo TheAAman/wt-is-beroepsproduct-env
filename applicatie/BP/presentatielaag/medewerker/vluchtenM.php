@@ -14,7 +14,6 @@ $sorteerKolom = isset($_GET['sorteerKolom']) ? $_GET['sorteerKolom'] : 'bestemmi
 $sorteerVolgorde = isset($_GET['sorteerVolgorde']) ? $_GET['sorteerVolgorde'] : 'ASC';
 
 $tabelHtmlM = vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerKolom, $sorteerVolgorde);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

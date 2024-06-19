@@ -39,8 +39,8 @@ function haalVlucht($vluchtnummer) {
 //Vluchtinfo vluchtenlijst functies
 // 1. Vluchtinfo vluchtenlijst ophalen
 function haalVluchten($vluchtnummer, $sorteerKolom, $sorteerVolgorde) {
-    $validColumns = ['vluchtnummer', 'bestemming', 'vertrektijd'];
-    $sorteerKolom = in_array($sorteerKolom, $validColumns) ? $sorteerKolom : 'bestemming';
+    $valideKolom = ['vluchtnummer', 'bestemming', 'vertrektijd'];
+    $sorteerKolom = in_array($sorteerKolom, $valideKolom) ? $sorteerKolom : 'bestemming';
     $sorteerVolgorde = ($sorteerVolgorde === 'DESC') ? 'DESC' : 'ASC';
 
     $sql = 'SELECT v.vluchtnummer, v.bestemming, v.vertrektijd, COUNT(p.passagiernummer) AS aantal_passagiers, v.max_aantal, SUM(v.max_gewicht_pp) AS totaal_gewicht, v.max_totaalgewicht
@@ -58,3 +58,4 @@ function haalVluchten($vluchtnummer, $sorteerKolom, $sorteerVolgorde) {
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+

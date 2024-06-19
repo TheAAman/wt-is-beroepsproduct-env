@@ -133,7 +133,7 @@ function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerKolom = 'bestemming', $so
     if (count($vluchten) > 0) {
         $tabelHtmlM .= '<tr>';
 
-        // Add table headers (include sortable links for first three columns)
+        // Headers met sorteerlinks voor de eerste drie kolommen
         $tabelHeaders = ['Vluchtnummer', 'Bestemming', 'Vertrektijd', 'Passagiers', 'Gewicht'];
         foreach ($tabelHeaders as $header) {
             $sorteerbaar = in_array($header, ['Vluchtnummer', 'Bestemming', 'Vertrektijd']);
@@ -146,12 +146,10 @@ function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerKolom = 'bestemming', $so
         foreach ($vluchten as $vlucht) {
             $tabelHtmlM .= '<tr>';
 
-            // Display all data in corresponding columns
             $tabelHtmlM .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vluchtnummer']) . '</a></td>';
             $tabelHtmlM .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['bestemming']) . '</a></td>';
             $tabelHtmlM .= '<td><a href="vluchtM.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($vlucht['vertrektijd']) . '</a></td>';
 
-            // Combine data for 'Passagiers' and 'Gewicht' as done previously
             $passagierInfo = $vlucht['aantal_passagiers'] . ' / ' . $vlucht['max_aantal'];
             $gewichtInfo = intval($vlucht['totaal_gewicht']) . ' / ' . intval($vlucht['max_totaalgewicht']);
 
@@ -163,5 +161,46 @@ function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerKolom = 'bestemming', $so
     }
 
     return $tabelHtmlM;
+}
+
+//Passagier details functies
+//2. Passagier details renderen
+function passagierNaarHtmlTabel ($passagiernummer) {
+    $passagier = passagierInfo($passagiernummer);
+
+    $passagierHtml = '';
+
+    if (count($passagier) > 0) {
+        foreach ($passagier as $p) {
+            $passagierHtml .= '<p><strong>Passagiernummer:</strong> ' . htmlspecialchars($p['passagiernummer']) . '</p>';
+            $passagierHtml .= '<p><strong>Naam:</strong> ' . htmlspecialchars($p['naam']) . '</p>';
+            $passagierHtml .= '<p><strong>Geslacht:</strong> ' . htmlspecialchars($p['geslacht']) . '</p>';
+            $passagierHtml .= '<p><strong>Vluchtnummer:</strong> ' . htmlspecialchars($p['vluchtnummer']) . '</p>';
+            $passagierHtml .= '<p><strong>Balie:</strong> ' . htmlspecialchars($p['balienummer']) . '</p>';
+            $passagierHtml .= '<p><strong>Stoel:</strong> ' . htmlspecialchars($p['stoel']) . '</p>';
+            $passagierHtml .= '<p><strong>Inchecktijdstip:</strong> ' . htmlspecialchars($p['inchecktijdstip'] ?? '') . '</p>';
+        }
+    }
+    return $passagierHtml;
+}
+
+//Passagier per vlucht functies
+//2. Passagier per vlucht renderen
+function passagierPVNaarHtmlTabel($vluchtnummer) {
+    $passagiers = passagierPerVlucht($vluchtnummer);
+
+    $passagierPVHtml = '';
+
+    if (count($passagiers) > 0) {
+        foreach ($passagiers as $p) {
+            $passagierPVHtml .= '<tr>';
+            $passagierPVHtml .= '<td><a href="passagier.php?passagiernummer=' . htmlspecialchars($p['passagiernummer']) . '" class="vluchtenLink">' . htmlspecialchars($p['passagiernummer']) . '</a></td>';
+            $passagierPVHtml .= '<td><a href="passagier.php?passagiernummer=' . htmlspecialchars($p['passagiernummer']) . '" class="vluchtenLink">' . htmlspecialchars($p['naam']) . '</a></td>';
+            $passagierPVHtml .= '<td><a href="passagier.php?passagiernummer=' . htmlspecialchars($p['passagiernummer']) . '" class="vluchtenLink">' . htmlspecialchars($p['geslacht']) . '</a></td>';
+            $passagierPVHtml .= '<td><a href="passagier.php?passagiernummer=' . htmlspecialchars($p['passagiernummer']) . '" class="vluchtenLink">' . htmlspecialchars($p['inchecktijdstip'] ?? '') . '</a></td>';
+            $passagierPVHtml .= '</tr>';
+        }
+    }
+    return $passagierPVHtml;
 }
 

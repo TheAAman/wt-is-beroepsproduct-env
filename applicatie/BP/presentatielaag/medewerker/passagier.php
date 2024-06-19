@@ -1,8 +1,11 @@
 <?php
 session_start();
 
-require_once ('../includes/db_connectie.php');
-require_once ('../includes/functies.php');
+require_once('../../datalaag/db_connectie.php');
+
+require_once ('../../sessielaag/checkSessie_functies.php');
+require_once ('../../datalaag/vluchtinfo_functies.php');
+require_once ('../../sessielaag/renderen_functies.php');
 
 checkSessieM();
 

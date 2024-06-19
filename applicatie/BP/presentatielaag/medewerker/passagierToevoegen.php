@@ -1,10 +1,15 @@
 <?php
 session_start();
 
-require_once ('../includes/db_connectie.php');
-require_once ('../includes/functies.php');
+require_once('../../datalaag/db_connectie.php');
+
+require_once ('../../sessielaag/checkSessie_functies.php');
+require_once ('../../datalaag/vluchtinfo_functies.php');
+require_once ('../../sessielaag/renderen_functies.php');
 
 checkSessieM();
+
+$vluchtnummer = isset($_GET['vluchtnummer']) ? $_GET['vluchtnummer'] : '';
 
 function toevoegenP(){
     $db = maakVerbinding();
@@ -18,7 +23,7 @@ function toevoegenP(){
         $Pstoel = $_POST['Pstoel'];
         $Ptijd = $_POST['Ptijd'];
 
-        $vlucht = getVlucht($Vnummer);
+        $vlucht = haalVlucht($Vnummer);
 
         if ($vlucht['aantal_passagiers'] < $vlucht['max_aantal']) {
             $sql = 'UPDATE Passagier 
@@ -62,7 +67,7 @@ function toevoegenP(){
 
     <main>
         <div class="form-field">
-            <a href="passagiers.php">Terug</a>
+            <a href="passagiersPerVlucht.php?vluchtnummer=<?=$vluchtnummer ?>">Terug</a>
         </div>
 
         <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
@@ -84,7 +89,7 @@ function toevoegenP(){
             </div>
             <div class="form-field">
                 <label for="Vluchtnummer">Vluchtnummer</label>
-                <input type="number" name="Vnummer" id="Vluchtnummer" placeholder="###" required>
+                <input type="number" name="Vnummer" id="Vluchtnummer" placeholder="###" value="<?= $vluchtnummer ?>" required>
             </div>
             <div class="form-field">
                 <label for="Balienummer">Balienummer</label>

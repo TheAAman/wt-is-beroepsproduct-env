@@ -2,9 +2,10 @@
 session_start();
 
 require_once('../../datalaag/db_connectie.php');
-require_once('../../sessielaag/checkSessie_functies.php');
-require_once('../../datalaag/vluchtinfo_functies.php');
-require_once('../../sessielaag/renderen_functies.php');
+
+require_once ('../../sessielaag/checkSessie_functies.php');
+require_once ('../../datalaag/vluchtinfo_functies.php');
+require_once ('../../sessielaag/renderen_functies.php');
 
 checkSessieM();
 
@@ -67,7 +68,7 @@ $passagierPVHtml = passagierPVNaarHtmlTabel($vluchtnummer);
 
     <main>
         <div class="passagierToevoegen">
-            <a href="passagierToevoegen.php">Passagier toevoegen</a>
+            <a href="passagierToevoegen.php?vluchtnummer=<?= $vluchtnummer ?>">Passagier toevoegen</a>
         </div>
 
         <div class="belangrijkevluchtInfo">

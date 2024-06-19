@@ -155,11 +155,8 @@ function vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerKolom = 'bestemming', $so
             $passagierInfo = $vlucht['aantal_passagiers'] . ' / ' . $vlucht['max_aantal'];
             $gewichtInfo = intval($vlucht['totaal_gewicht']) . ' / ' . intval($vlucht['max_totaalgewicht']);
 
-            // $tabelHtmlM .= '<td><a href="vluchtM.php?vluchtnummer=' . $passagierInfo . '</a></td>';
-            $tabelHtmlM .= '<td><a href="passagiers.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($passagierInfo) . '</a></td>';
-
-            // $tabelHtmlM .= '<td>' . $gewichtInfo . '</td>';
-            $tabelHtmlM .= '<td><a href="passagiers.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($gewichtInfo) . '</a></td>';
+            $tabelHtmlM .= '<td><a href="passagiersPerVlucht.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($passagierInfo) . '</a></td>';
+            $tabelHtmlM .= '<td><a href="passagiersPerVlucht.php?vluchtnummer=' . htmlspecialchars($vlucht['vluchtnummer']) . '" class="vluchtenLink">' . htmlspecialchars($gewichtInfo) . '</a></td>';
 
             $tabelHtmlM .= '</tr>';
         }

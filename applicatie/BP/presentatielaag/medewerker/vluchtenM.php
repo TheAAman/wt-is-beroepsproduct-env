@@ -10,10 +10,10 @@ require_once ('../../sessielaag/renderen_functies.php');
 checkSessieM();
 
 $vluchtnummer = isset($_GET['Vluchtnummer']) ? $_GET['Vluchtnummer'] : '';
-$sorteerColom = isset($_GET['sorteerColom']) ? $_GET['sorteerColom'] : 'bestemming';
+$sorteerKolom = isset($_GET['sorteerKolom']) ? $_GET['sorteerKolom'] : 'bestemming';
 $sorteerVolgorde = isset($_GET['sorteerVolgorde']) ? $_GET['sorteerVolgorde'] : 'ASC';
 
-$tableRows = vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerColom, $sorteerVolgorde);
+$tabelHtmlM = vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerKolom, $sorteerVolgorde);
 
 ?>
 <!DOCTYPE html>
@@ -42,7 +42,7 @@ $tableRows = vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerColom, $sorteerVolgor
             <form action="vluchtenM.php" method="get">
                 <h3>Vluchtnummer:</h3>
                 <div class="balkBalk">
-                    <input class="zoekbalkBalk" type="number" name="Vluchtnummer" placeholder="Zoeken">
+                    <input class="zoekbalkBalk" type="number" name="Vluchtnummer" placeholder="Zoeken" value="<?= htmlspecialchars($vluchtnummer) ?>">
                 </div>
                 <div class="zoekKnopContainer">
                     <input class="zoekKnop" type="submit" value="Zoeken">
@@ -52,7 +52,7 @@ $tableRows = vluchtenNaarHtmlTabelM($vluchtnummer, $sorteerColom, $sorteerVolgor
 
         <div class="Overzicht">
             <table class="tabelOverzicht">
-                <?= $tableRows ?>
+                <?= $tabelHtmlM ?>
             </table>           
         </div>
     </main>

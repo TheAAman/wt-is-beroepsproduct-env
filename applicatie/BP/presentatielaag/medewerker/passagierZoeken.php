@@ -1,8 +1,11 @@
 <?php
 session_start();
 
-require_once ('../includes/db_connectie.php');
-require_once ('../includes/functies.php');
+require_once('../../datalaag/db_connectie.php');
+
+require_once ('../../sessielaag/checkSessie_functies.php');
+require_once ('../../datalaag/vluchtinfo_functies.php');
+require_once ('../../sessielaag/renderen_functies.php');
 
 checkSessieM();
 
@@ -42,10 +45,6 @@ $passagiernummer = isset($_GET['Passagiernummer']) ? $_GET['Passagiernummer'] : 
 
     </main>
 
-    <footer>
-        <img src="../img/Icons/han_university.png" alt="Logo van de HAN" title="HAN">
-        <a href="../privacy.html">Privacy Policy</a> 
-        &copy;2023 GAAF productions
-    </footer>
+    <?php include_once '../includes/footer.php'; ?>
 </body>
 </html>

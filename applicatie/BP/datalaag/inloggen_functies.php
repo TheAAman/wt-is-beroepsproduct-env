@@ -12,11 +12,13 @@ function checkUser ($username, $password){
     $rij = $stmt->fetch(PDO::FETCH_ASSOC); 
   
     if ($rij) { 
-      $stored_password = $rij['wachtwoord'];
-     
-    // if (password_verify($password, $stored_password)) {
-    if ($password === $stored_password){
-          return true; 
+        $stored_password = $rij['wachtwoord'];
+
+        if (password_verify($password, $stored_password)) {
+            return true; 
+        }
+        if ($password === $stored_password) {
+            return true;
         }
     }
     return false; 
@@ -51,11 +53,13 @@ function checkBalie ($balienummer, $password){
     $rij = $stmt->fetch(PDO::FETCH_ASSOC); 
   
     if ($rij) { 
-      $stored_password = $rij['wachtwoord'];
-     
-    // if (password_verify($password, $stored_password)) {
-    if ($password === $stored_password){
-          return true; 
+        $stored_password = $rij['wachtwoord'];
+
+        if (password_verify($password, $stored_password)) {
+            return true; 
+        }
+        if ($password === $stored_password) {
+            return true;
         }
     }
     return false; 

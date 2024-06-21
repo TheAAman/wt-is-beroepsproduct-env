@@ -9,10 +9,10 @@ function checkUser ($username, $password){
     $stmt->bindParam(":username", $username);
     $stmt->execute();
   
-    $row = $stmt->fetch(PDO::FETCH_ASSOC); 
+    $rij = $stmt->fetch(PDO::FETCH_ASSOC); 
   
-    if ($row) { 
-      $stored_password = $row['wachtwoord'];
+    if ($rij) { 
+      $stored_password = $rij['wachtwoord'];
      
     // if (password_verify($password, $stored_password)) {
     if ($password === $stored_password){
@@ -48,10 +48,10 @@ function checkBalie ($balienummer, $password){
     $stmt->bindParam(":balienummer", $balienummer);
     $stmt->execute();
   
-    $row = $stmt->fetch(PDO::FETCH_ASSOC); 
+    $rij = $stmt->fetch(PDO::FETCH_ASSOC); 
   
-    if ($row) { 
-      $stored_password = $row['wachtwoord'];
+    if ($rij) { 
+      $stored_password = $rij['wachtwoord'];
      
     // if (password_verify($password, $stored_password)) {
     if ($password === $stored_password){

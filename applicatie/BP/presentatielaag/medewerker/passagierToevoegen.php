@@ -59,7 +59,7 @@ toevoegenP();
             </div>
             <div class="form-field">
                 <label for="Balienummer">Balienummer</label>
-                <select name="Vbalie" id="Balienummer" size="1" required>
+                <select name="Vbalie" id="Balienummer" size="1">
                     <option value="">1</option>
                     <option value="">2</option>
                     <option value="">3</option>
@@ -74,11 +74,15 @@ toevoegenP();
             </div>
             <div class="form-field">
                 <label for="Stoel">Stoel</label>
-                <input type="text" name="Pstoel" id="Stoel" required>
+                <input type="text" name="Pstoel" id="Stoel">
             </div>
             <div class="form-field">
                 <label for="Inchecktijd">Inchecktijdstip</label>
-                <input type="datetime-local" name="Ptijd" id="Inchecktijd" required>
+                <input type="datetime-local" name="Ptijd" id="Inchecktijd">
+            </div>
+            <div class="form-field">
+                <label for="Wachtwoord">Wachtwoord</label>
+                <input type="password" name="Pwachtwoord" id="Wachtwoord">
             </div>
             <input type="submit" name="OpslaanNieuweP" value="Opslaan">
         </form>

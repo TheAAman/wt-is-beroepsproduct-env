@@ -50,7 +50,7 @@ $passagierPVHtml = passagierPVNaarHtmlTabel($vluchtnummer);
         <div class="belangrijkevluchtInfo">
             <h3>Bestemming:</h3><p><?php echo isset($land['luchthaven']) ? htmlspecialchars($land['luchthaven']) : 'Onbekend'; ?></p>
             <h3>Vluchtnummer:</h3><p><?= htmlspecialchars($vluchtnummer) ?></p>
-            <h4>Ingecheckt:</h4><p><?= htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) ?></p>
+            <h3>Stoelen bezet:</h3><p><?= htmlspecialchars($vlucht['aantal_passagiers']) . ' / ' . htmlspecialchars($vlucht['max_aantal']) ?></p>
         </div>
         <div class="Overzicht">
             <table class="tabelOverzicht">

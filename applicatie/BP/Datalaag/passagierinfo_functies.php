@@ -45,12 +45,15 @@ function toevoegenP(){
         $Vbalie = $_POST['Vbalie'];
         $Pstoel = $_POST['Pstoel'];
         $Ptijd = $_POST['Ptijd'];
+        $Pwachtwoord = $_POST['Pwachtwoord'];
 
         $vlucht = haalVlucht($Vnummer);
 
         if ($vlucht['aantal_passagiers'] < $vlucht['max_aantal']) {
+            $hashed_Pwachtwoord = password_hash($Pwachtwoord, PASSWORD_DEFAULT);
+
             $sql = 'UPDATE Passagier 
-                    SET naam = :Pnaam, geslacht = :Pgeslacht, vluchtnummer = :Vnummer, balienummer = :Vbalie, stoel = :Pstoel, inchecktijd = :Ptijd 
+                    SET naam = :Pnaam, geslacht = :Pgeslacht, vluchtnummer = :Vnummer, balienummer = :Vbalie, stoel = :Pstoel, inchecktijd = :Ptijd, wachtwoord = :Pwachtwoord 
                     WHERE passagiernummer = :Pnummer;';
 
             $stmt = $db->prepare($sql);
@@ -62,6 +65,7 @@ function toevoegenP(){
             $stmt->bindParam(':Vbalie', $Vbalie, PDO::PARAM_INT);
             $stmt->bindParam(':Pstoel', $Pstoel);
             $stmt->bindParam(':Ptijd', $Ptijd);
+            $stmt->bindParam(':Pwachtwoord', $hashed_Pwachtwoord);
 
             $stmt->execute();
         } else {

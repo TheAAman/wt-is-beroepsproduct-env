@@ -9,26 +9,8 @@ require_once ('../../datalaag/inchecken_functies.php');
 
 checkSessieP();
 
-// function getVluchtByPassagier($passagiernummer) {
-//     $db = maakVerbinding();
-
-//     $sql = 'SELECT v.vluchtnummer 
-//             FROM Passagier p
-//             JOIN Vlucht v ON p.vluchtnummer = v.vluchtnummer
-//             WHERE p.passagiernummer = :passagiernummer';
-
-//     $stmt = $db->prepare($sql);
-//     $stmt->bindParam(':passagiernummer', $passagiernummer, PDO::PARAM_INT);
-//     $stmt->execute();
-
-//     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-//     return $row ? $row['vluchtnummer'] : null;
-// }
-
 checkInP();
 checkInB();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +40,7 @@ checkInB();
                     <div class="form-field">
                         <label for="Naam">Naam</label>
                         <div class="passagiernaam">
-                            <input type="text" name="Pname" id="Naam" placeholder="Naam">
+                            <input type="text" name="Pname" id="Naam" placeholder="Naam" required>
                         </div>
                     </div>
 
@@ -69,7 +51,7 @@ checkInB();
 
                     <div class="form-field">
                         <label for="balienummer">Balienummer</label>
-                        <input type="tel" name="Bnummer" id="balienummer" placeholder="###">
+                        <input type="tel" name="Bnummer" id="balienummer" placeholder="1-10" required>
                     </div>
 
                     <div class="form-field">
@@ -80,14 +62,19 @@ checkInB();
                     <div class="form-field">
                         <label for="geslacht">Geslacht:</label>
                         <select name="gender" id="geslacht">
-                            <option value="Man">Man</option>
-                            <option value="Vrouw">Vrouw</option>
-                            <option value="Onzijdig">Onzijdig</option>
+                            <option value="M">Man</option>
+                            <option value="V">Vrouw</option>
+                            <option value="O">Onzijdig</option>
                         </select>
                     </div>
 
+                    <div class="form-field">
+                        <label for="Inchecktijd">Inchecktijdstip</label>
+                        <input type="datetime-local" name="Ptijd" id="Inchecktijd">
+                    </div>
+
                     <div class="incheckKnop">
-                        <input type="submit" name="inchecken" value="Inchecken">
+                        <input type="submit" name="incheckenP" value="Inchecken">
                         <div class="tooltipIP">Inchecken passagier</div>
                     </div>
                 </form>
@@ -133,7 +120,7 @@ checkInB();
                     </div>
 
                     <div class="incheckKnop">
-                        <input type="submit" name="inchecken" value="Inchecken">
+                        <input type="submit" name="incheckenB" value="Inchecken">
                         <div class="tooltipIB">Inchecken bagage</div>
                     </div>
                 </form>

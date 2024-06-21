@@ -9,8 +9,8 @@ require_once ('../../datalaag/inchecken_functies.php');
 
 checkSessieM();
 
-checkInB();
 checkInP();
+checkInB();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,15 +32,15 @@ checkInP();
     <main>
         <div class="incheckVelden">
             <div class="incheckveldP">
-                <form action="incheckenP.html" method="POST">
+                <form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
                     <div class="titelincheckFormulier">
-                    <h2>Inchecken</h2>
+                        <h2>Inchecken</h2>
                     </div>
                     
                     <div class="form-field">
                         <label for="Naam">Naam</label>
                         <div class="passagiernaam">
-                            <input type="text" name="Pname" id="Naam" placeholder="Naam">
+                            <input type="text" name="Pname" id="Naam" placeholder="Naam" required>
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@ checkInP();
 
                     <div class="form-field">
                         <label for="balienummer">Balienummer</label>
-                        <input type="tel" name="Bnummer" id="balienummer" placeholder="###">
+                        <input type="tel" name="Bnummer" id="balienummer" placeholder="1-10" required>
                     </div>
 
                     <div class="form-field">
@@ -62,21 +62,26 @@ checkInP();
                     <div class="form-field">
                         <label for="geslacht">Geslacht:</label>
                         <select name="gender" id="geslacht">
-                            <option value="Man">Man</option>
-                            <option value="Vrouw">Vrouw</option>
-                            <option value="Onzijdig">Onzijdig</option>
+                            <option value="M">Man</option>
+                            <option value="V">Vrouw</option>
+                            <option value="O">Onzijdig</option>
                         </select>
                     </div>
 
+                    <div class="form-field">
+                        <label for="Inchecktijd">Inchecktijdstip</label>
+                        <input type="datetime-local" name="Ptijd" id="Inchecktijd">
+                    </div>
+
                     <div class="incheckKnop">
-                        <input type="submit" name="inchecken" value="Inchecken">
+                        <input type="submit" name="incheckenP" value="Inchecken">
                         <div class="tooltipIP">Inchecken passagier</div>
                     </div>
                 </form>
             </div>
 
             <div class="incheckveldB">
-                <form action="inchecken.html" method="POST">
+                <form action="<?=$_SERVER['PHP_SELF']?>" method="POST">
                     <div class="titelincheckFormulier">
                         <h2>Bagage</h2>
                     </div>
@@ -93,7 +98,7 @@ checkInP();
                     <div class="form-field">
                         <label for="Gewicht1">Koffer 1</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB" id="Gewicht1" placeholder="###">
+                            <input type="number" name="gewichtB1" id="Gewicht1" placeholder="###" step="0.01">
                             <span>Gram</span>
                         </div>
                     </div>
@@ -101,7 +106,7 @@ checkInP();
                     <div class="form-field">
                         <label for="Gewicht2">Koffer 2</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB" id="Gewicht2" placeholder="Vul in als nodig">
+                            <input type="number" name="gewichtB2" id="Gewicht2" placeholder="Vul in als nodig" step="0.01">
                             <span>Gram</span>
                         </div>
                     </div>
@@ -109,13 +114,13 @@ checkInP();
                     <div class="form-field">
                         <label for="Gewicht3">Koffer 3</label>
                         <div class="gewichtKoffer">
-                            <input type="number" name="gewichtB" id="Gewicht3" placeholder="Vul in als nodig">
+                            <input type="number" name="gewichtB3" id="Gewicht3" placeholder="Vul in als nodig" step="0.01">
                             <span>Gram</span>
                         </div> 
                     </div>
 
                     <div class="incheckKnop">
-                        <input type="submit" name="inchecken" value="Inchecken">
+                        <input type="submit" name="incheckenB" value="Inchecken">
                         <div class="tooltipIB">Inchecken bagage</div>
                     </div>
                 </form>

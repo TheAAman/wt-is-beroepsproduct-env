@@ -47,7 +47,7 @@ toevoegenP();
             </div>
             <div class="form-field">
                 <label for="Geslacht">Geslacht</label>
-                <select name="Pgeslacht" id="Geslacht">
+                <select name="Pgeslacht" id="Geslacht" required>
                     <option value="M">M</option>
                     <option value="V">V</option>
                     <option value="O">O</option>
@@ -59,22 +59,11 @@ toevoegenP();
             </div>
             <div class="form-field">
                 <label for="Balienummer">Balienummer</label>
-                <select name="Vbalie" id="Balienummer" size="1">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                    <option value="">6</option>
-                    <option value="">7</option>
-                    <option value="">8</option>
-                    <option value="">9</option>
-                    <option value="">10</option>
-                </select>
+                <input type="number" name="Vbalie" id="Balienummer" placeholder="1-10" required>
             </div>
             <div class="form-field">
                 <label for="Stoel">Stoel</label>
-                <input type="text" name="Pstoel" id="Stoel">
+                <input type="text" name="Pstoel" id="Stoel" placeholder="A-G en 1-60" required>
             </div>
             <div class="form-field">
                 <label for="Inchecktijd">Inchecktijdstip</label>
@@ -82,7 +71,7 @@ toevoegenP();
             </div>
             <div class="form-field">
                 <label for="Wachtwoord">Wachtwoord</label>
-                <input type="password" name="Pwachtwoord" id="Wachtwoord">
+                <input type="password" name="Pwachtwoord" id="Wachtwoord" required>
             </div>
             <input type="submit" name="OpslaanNieuweP" value="Opslaan">
         </form>

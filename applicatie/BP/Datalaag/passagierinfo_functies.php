@@ -47,14 +47,16 @@ function toevoegenP(){
         $Ptijd = $_POST['Ptijd'];
         $Pwachtwoord = $_POST['Pwachtwoord'];
 
+        $Ptijdformat = date('Y-m-d H:i:s', strtotime($Ptijd)) . '.000';
+
         $vlucht = haalVlucht($Vnummer);
 
         if ($vlucht['aantal_passagiers'] < $vlucht['max_aantal']) {
             $hashed_Pwachtwoord = password_hash($Pwachtwoord, PASSWORD_DEFAULT);
 
-            $sql = 'UPDATE Passagier 
-                    SET naam = :Pnaam, geslacht = :Pgeslacht, vluchtnummer = :Vnummer, balienummer = :Vbalie, stoel = :Pstoel, inchecktijd = :Ptijd, wachtwoord = :Pwachtwoord 
-                    WHERE passagiernummer = :Pnummer;';
+            $sql = 'INSERT INTO Passagier (passagiernummer, naam, geslacht, vluchtnummer, balienummer, stoel, inchecktijdstip, wachtwoord)
+                    VALUES (:Pnummer, :Pnaam, :Pgeslacht, :Vnummer, :Vbalie, :Pstoel, :Ptijd, :Pwachtwoord);';
+
 
             $stmt = $db->prepare($sql);
 
@@ -62,12 +64,15 @@ function toevoegenP(){
             $stmt->bindParam(':Pnaam', $Pnaam);
             $stmt->bindParam(':Pgeslacht', $Pgeslacht);
             $stmt->bindParam(':Vnummer', $Vnummer, PDO::PARAM_INT);
-            $stmt->bindParam(':Vbalie', $Vbalie, PDO::PARAM_INT);
+            $stmt->bindParam(':Vbalie', $Vbalie);
             $stmt->bindParam(':Pstoel', $Pstoel);
-            $stmt->bindParam(':Ptijd', $Ptijd);
+            $stmt->bindParam(':Ptijd', $Ptijdformat);
             $stmt->bindParam(':Pwachtwoord', $hashed_Pwachtwoord);
 
             $stmt->execute();
+
+            header("Location: passagiersPerVlucht.php?vluchtnummer=$Vnummer");
+            exit;
         } else {
             echo "Vliegtuig zit vol";
         }
@@ -87,11 +92,13 @@ function wijzigP () {
         $Pstoel = $_POST['Pstoel'];
         $Ptijd = $_POST['Ptijd'];
 
+        $Ptijdformat = date('Y-m-d H:i:s', strtotime($Ptijd)) . '.000';
+
         $vlucht = haalVlucht($Vnummer);
 
         if ($vlucht['aantal_passagiers'] < $vlucht['max_aantal']) {
             $sql = 'UPDATE Passagier 
-                    SET naam = :Pnaam, geslacht = :Pgeslacht, vluchtnummer = :Vnummer, balienummer = :Vbalie, stoel = :Pstoel, inchecktijd = :Ptijd 
+                    SET naam = :Pnaam, geslacht = :Pgeslacht, vluchtnummer = :Vnummer, balienummer = :Vbalie, stoel = :Pstoel, inchecktijdstip = :Ptijd 
                     WHERE passagiernummer = :Pnummer;';
 
             $stmt = $db->prepare($sql);
@@ -102,9 +109,12 @@ function wijzigP () {
             $stmt->bindParam(':Vnummer', $Vnummer, PDO::PARAM_INT);
             $stmt->bindParam(':Vbalie', $Vbalie, PDO::PARAM_INT);
             $stmt->bindParam(':Pstoel', $Pstoel);
-            $stmt->bindParam(':Ptijd', $Ptijd);
+            $stmt->bindParam(':Ptijd', $Ptijdformat);
 
             $stmt->execute();
+            
+            header("Location: passagier.php?passagiernummer=$Pnummer");
+            exit;
         } else {
             echo "Vliegtuig zit vol";
         }

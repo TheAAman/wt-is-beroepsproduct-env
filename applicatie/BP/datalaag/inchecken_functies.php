@@ -2,7 +2,7 @@
 //Inchecken functies
 //1. Inchecken passagier functie
 function checkInP() {
-    if (isset($_POST['inchecken'])) {
+    if (isset($_POST['incheckenP'])) {
         $db = maakVerbinding();
 
         $Pname = $_POST['Pname'];
@@ -10,12 +10,15 @@ function checkInP() {
         $Bnummer = $_POST['Bnummer'];
         $Pnummer = $_POST['Pnummer'];
         $gender = $_POST['gender'];
+        $Ptijd = $_POST['Ptijd'];
 
-        $vlucht = getVlucht($Vnummer);
+        $Ptijdformat = date('Y-m-d H:i:s', strtotime($Ptijd)) . '.000';
+
+        $vlucht = haalVlucht($Vnummer);
 
         if ($vlucht['aantal_passagiers'] < $vlucht['max_aantal']) {
             $sql = 'UPDATE Passagier 
-                    SET vluchtnummer = :vluchtnummer, balienummer = :balienummer, passagiernaam = :passagiernaam, geslacht = :geslacht
+                    SET vluchtnummer = :vluchtnummer, balienummer = :balienummer, naam = :passagiernaam, geslacht = :geslacht, inchecktijdstip = :Ptijd
                     WHERE passagiernummer = :passagiernummer';
             $stmt = $db->prepare($sql);
             $stmt->bindParam(':passagiernummer', $Pnummer, PDO::PARAM_INT);
@@ -23,6 +26,7 @@ function checkInP() {
             $stmt->bindParam(':balienummer', $Bnummer, PDO::PARAM_INT);
             $stmt->bindParam(':passagiernaam', $Pname);
             $stmt->bindParam(':geslacht', $gender);
+            $stmt->bindParam(':Ptijd', $Ptijdformat);
             $stmt->execute();
         } else {
             echo "Vliegtuig zit vol";
@@ -31,15 +35,34 @@ function checkInP() {
 }
 
 //2. Inchecken bagage functie
+//2.1 Passagiernummer aan vluchtnummer koppelen
+function haalVluchtNperPassagierN($passagiernummer) {
+    $db = maakVerbinding();
+
+    $sql = 'SELECT v.vluchtnummer 
+            FROM Passagier p
+            JOIN Vlucht v ON p.vluchtnummer = v.vluchtnummer
+            WHERE p.passagiernummer = :passagiernummer';
+
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':passagiernummer', $passagiernummer, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $row ? $row['vluchtnummer'] : null;
+}
+
+//2.2 Inchecken bagage functie
 function checkInB() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['incheckenB'])) {
         if (isset($_POST['Pnummer'])) {
             $passagiernummer = $_POST['Pnummer'];
             $db = maakVerbinding();
 
-            $vluchtnummer = getVluchtByPassagier($passagiernummer);
+            $vluchtnummer = haalVluchtNperPassagierN($passagiernummer);
 
-            $vlucht = getVlucht($vluchtnummer);
+            $vlucht = haalVlucht($vluchtnummer);
 
             $totalBaggageWeight = 0;
             for ($i = 1; $i <= 3; $i++) {
@@ -50,9 +73,9 @@ function checkInB() {
                 }
             }
 
-            if ($vlucht['totaal_gewicht'] + $totalBaggageWeight <= $vlucht['max_totaalgewicht']) {
+            if ($vlucht && ($vlucht['totaal_gewicht'] + $totalBaggageWeight <= $vlucht['max_totaalgewicht'])) {
                 $sql = 'INSERT INTO Bagageobject (passagiernummer, objectvolgnummer, gewicht)
-                        VALUES (:passagiernummer, :objectvolgnummer, :gewichtB)';
+                        VALUES (:passagiernummer, :objectvolgnummer, :gewicht)';
                 $stmt = $db->prepare($sql);
 
                 for ($i = 1; $i <= 3; $i++) {
@@ -61,10 +84,12 @@ function checkInB() {
                     if ($gewicht !== null && $gewicht !== '') {
                         $stmt->bindParam(':passagiernummer', $passagiernummer);
                         $stmt->bindParam(':objectvolgnummer', $i);
-                        $stmt->bindParam(':gewichtB', $gewicht);
+                        $stmt->bindParam(':gewicht', $gewicht);
                         $stmt->execute();
                     }
                 }
+
+                echo "Baggage successfully checked in!";
             } else {
                 echo "Geen plek meer in bagageruimte";
             }

@@ -59,26 +59,15 @@ wijzigP();
             </div>
             <div class="form-field">
                 <label for="Balienummer">Balienummer</label>
-                <select name="Vbalie" id="Balienummer" size="1" required>
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                    <option value="">6</option>
-                    <option value="">7</option>
-                    <option value="">8</option>
-                    <option value="">9</option>
-                    <option value="">10</option>
-                </select>
+                <input type="number" name="Vbalie" id="Balienummer" placeholder="1-10" required>
             </div>
             <div class="form-field">
                 <label for="Stoel">Stoel</label>
-                <input type="text" name="Pstoel" id="Stoel" required>
+                <input type="text" name="Pstoel" id="Stoel" placeholder="A-G en 1-60" required>
             </div>
             <div class="form-field">
                 <label for="Inchecktijd">Inchecktijdstip</label>
-                <input type="datetime-local" name="Ptijd" id="Inchecktijd" required>
+                <input type="datetime-local" name="Ptijd" id="Inchecktijd">
             </div>
             <input type="submit" name="OpslaanWijzigP" value="Opslaan">
         </form>
